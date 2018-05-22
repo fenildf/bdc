@@ -16,7 +16,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.a00.bdcapp.MainActivity;
 import com.example.a00.bdcapp.R;
 
 import java.util.Calendar;
