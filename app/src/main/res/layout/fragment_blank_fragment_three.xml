@@ -1,0 +1,67 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.a00.bdcapp.BlankFragmentThree">
+
+    <ImageView
+        android:id="@+id/user_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/icon" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="小猪佩奇"
+        android:gravity="center_horizontal"
+        android:textSize="20sp"
+        android:id="@+id/usernameshow"
+        android:layout_below="@+id/user_picture"/>
+
+    <Button
+        android:id="@+id/user_revise"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/usernameshow"
+        android:background="#00000000"
+        android:text="修改个人信息"
+        android:textAlignment="viewStart"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"/>
+
+    <Button
+        android:id="@+id/user_wordlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_revise"
+        android:background="#00000000"
+        android:text="单词本"
+        android:textAlignment="viewStart"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"/>
+
+    <Button
+        android:id="@+id/user_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_setting"
+        android:background="#00000000"
+        android:text="退出登录"
+        android:textAlignment="viewStart"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"/>
+
+    <Button
+        android:id="@+id/user_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_wordlist"
+        android:background="#00000000"
+        android:text="复习设置"
+        android:textAlignment="viewStart"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"/>
+
+</RelativeLayout>
