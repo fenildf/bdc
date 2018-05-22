@@ -13,15 +13,21 @@ import android.widget.Toast;
 
 import com.simulation.bdc.Service.UserService;
 
+/**
+ * 登录 页面Activity 用户可以输入 账号和密码进行登录
+ * 如果没有账号，可以点击注册按钮 跳转到注册页面进行注册
+ * 如果忘记密码 点击 忘记密码 进入到找回密码页面
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private final int LOGINFAIL = 0;    //登录失败
     private final int LOGINSUCESS = 1;  //登录成功
-    private EditText userNameEditText;
-    private EditText passwordEditText;
-    private Button loginButton;
-    private Button registerButton;
-    private TextView forgetPasswordTextView;
+
+    private EditText userNameEditText; //账号 输入框
+    private EditText passwordEditText; //密码输入框
+    private Button loginButton; //登录按钮
+    private Button registerButton;//注册按钮
+    private TextView forgetPasswordTextView; //忘记密码
     private Handler handler = new Handler() {
 
         public void handleMessage(Message msg) {
@@ -69,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         registerButton = findViewById(R.id.register);
         forgetPasswordTextView = findViewById(R.id.forgetpassword);
 
-        //点击登录按钮跳转到首页
+        //点击登录按钮 如果登录成功则跳转到首页 失败则提示“账号或者密码错误”
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        //点击注册按钮跳转到注册界面，注册界面也适用于忘记密码
+        //点击注册按钮跳转到注册界面
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        //待定
         //点击忘记密码按钮跳转到注册界面
         forgetPasswordTextView.setOnClickListener(new View.OnClickListener() {
             @Override
