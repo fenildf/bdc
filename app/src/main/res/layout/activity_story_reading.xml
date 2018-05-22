@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.bdc.fragment1.StoryReadingActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/title_reading"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="故事阅读"
+            android:textSize="25sp" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <TextView
+        android:id="@+id/storyshow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/title_reading"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:inputType="textMultiLine"
+        android:text="They packed up the tent next morning and moved on through a dreary shower of rain. The downpour pursued them to the coast, where they pitched the tent that night, and persisted through the whole week, through sodden landscapes that Harry found bleak and depressing. He could think only of the Deathly Hallows. It was as though a flame had been lit inside him that nothing, not Hermione’s flat disbelief nor Ron’s persistent doubts, could extinguish. And yet the fiercer the longing for the Hallows burned inside him, the less joyful it made him. He blamed Ron and Hermione: Their determined indifference was as bad as the relentless rain for dampening his spirits, but neither could erode his certainty, which remained absolute. Harry’s belief in and longing for the Hallows consumed him so much that he felt quite isolated from the other two and their obsession with the Horcruxes.
+
+第二天早上，他们收起帐篷，在阴凄凄的阵雨中出发了。倾盆大雨一直追到晚上他们搭帐篷的海岸边，然后延续了整个星期。到处都是湿漉漉的景物，让哈利感到阴冷和抑郁。他满脑子里只有死亡圣器，就好像他身体内一个火苗被点燃了，不论是赫敏的坚决不信，还是罗恩的不断怀疑，都不能熄灭它。可是对圣器的渴望在心中燃烧得越强烈，就越使他不快乐。他怪罪于罗恩和赫敏，他们决意的漠视就像无情的大雨一样令他沮丧，但都不能削弱他的信心，他依然是那么确信无疑。对圣器的信念和渴望占据了哈利的心思，以至于他觉得与对魂器着魔的两个同伴有了很大的隔膜。"
+        android:textSize="15sp"
+        android:scrollbars="vertical"/>
+
+</RelativeLayout>

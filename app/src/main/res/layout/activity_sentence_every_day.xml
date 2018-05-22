@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.bdc.fragment1.SentenceEveryDayActivity">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="每日一句"
+            android:textSize="25sp"
+            android:textColor="#fff"
+            android:id="@+id/sentenceperday"
+            android:background="#303F9F"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/sentenceperday"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/big_20180512b"
+        android:id="@+id/sentencepicshow"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="As long as we have memories, yesterday remains.
+As long as we have hopes, tomorrow awaits."
+        android:inputType="textMultiLine"
+        android:id="@+id/sentenceenshow"
+        android:layout_below="@+id/sentencepicshow"
+        android:textSize="20sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="只要我们还有回忆，昨日仍在。只要我们还有希望，明日尚待。"
+        android:inputType="textMultiLine"
+        android:id="@+id/sentencechshow"
+        android:layout_below="@+id/sentenceenshow"
+        android:textSize="20sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"/>
+
+
+
+
+</RelativeLayout>

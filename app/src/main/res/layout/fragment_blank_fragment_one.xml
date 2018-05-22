@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/home_background"
+    tools:context="com.example.bdc.bdcapp.HomeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="127dp">
+
+        <TextView
+            android:id="@+id/learn_textView"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:background="@color/colorHomeTextView"
+            android:text="LEARN"
+            android:textColor="@color/colorHomeText"
+            android:textSize="35dp"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/review_textView"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="20dp"
+            android:background="@color/colorHomeTextView"
+            android:text="REVIEW"
+            android:textColor="@color/colorHomeText"
+            android:textSize="35dp"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

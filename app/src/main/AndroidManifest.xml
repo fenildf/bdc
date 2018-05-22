@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.a00.bdcapp">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.example.bdc.bdcapp.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.bdc.bdcapp.LoginActivity" />
+        <activity
+            android:name="com.example.bdc.bdcapp.HomeActivity"
+            android:label="@string/title_activity_home" />
+        <activity
+            android:name="com.example.bdc.fragment1.StoryReadingActivity"
+            android:label="@string/title_activity_story_reading"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.example.bdc.fragment1.SentenceEveryDayActivity"
+            android:label="@string/title_activity_sentence_every_day"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.example.bdc.fragment1.ReviewPlanActivity"
+            android:label="@string/title_activity_review_plan"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="com.example.bdc.fragment1.MyCoursesActivity" />
+        <activity android:name="com.example.bdc.fragment2.CYLEActivity" />
+        <activity android:name="com.example.bdc.fragment2.NCEActivity" />
+        <activity android:name="com.example.bdc.fragment3.WordlistActivity" />
+        <activity android:name="com.example.bdc.fragment3.ReviseInformationActivity" />
+        <activity android:name="com.example.bdc.fragment3.FeedbackActivity" />
+        <activity android:name="com.example.bdc.fragment3.ReviewPlanSettingActivity" />
+        <activity android:name="com.example.bdc.bdcapp.RegisterActivity" />
+        <activity android:name="com.example.bdc.fragment3.NumberActivity" />
+        <activity android:name="com.example.bdc.fragment1.SearchWordsActivity" />
+        <activity android:name="com.example.bdc.fragment3.GetPictureActivity" />
+        <activity android:name="com.example.bdc.bdcapp.SearchActivity"></activity>
+    </application>
+
+</manifest>
