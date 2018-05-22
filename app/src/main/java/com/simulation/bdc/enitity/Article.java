@@ -1,4 +1,4 @@
-package com.simulation.lab.bdc.enitity;
+package com.simulation.bdc.enitity;
 
 public class Article {
     private int articleId; //文章Id;

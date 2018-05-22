@@ -1,4 +1,4 @@
-package com.simulation.lab.bdc.enitity;
+package com.simulation.bdc.enitity;
 
 /**
  * 例句信息

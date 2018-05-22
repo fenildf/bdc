@@ -1,12 +1,12 @@
-package com.simulation.lab.bdc.Service;
+package com.simulation.bdc.Service;
 
 import android.util.Log;
 
-import com.simulation.lab.bdc.enitity.User;
-import com.simulation.lab.bdc.util.ConnecteURL;
-import com.simulation.lab.bdc.util.ParseJson;
-import com.simulation.lab.bdc.util.RequestURL;
-import com.simulation.lab.bdc.util.Session;
+import com.simulation.bdc.enitity.User;
+import com.simulation.bdc.util.ConnecteURL;
+import com.simulation.bdc.util.ParseJson;
+import com.simulation.bdc.util.RequestURL;
+import com.simulation.bdc.util.Session;
 
 import org.json.JSONException;
 import org.json.JSONObject;

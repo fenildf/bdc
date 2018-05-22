@@ -1,6 +1,6 @@
-package com.simulation.lab.bdc.Service;
+package com.simulation.bdc.Service;
 
-import com.simulation.lab.bdc.enitity.Word;
+import com.simulation.bdc.enitity.Word;
 
 import java.util.List;
 
