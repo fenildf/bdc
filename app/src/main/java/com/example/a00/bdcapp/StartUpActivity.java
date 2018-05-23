@@ -24,6 +24,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
 
+/**
+ * 启动页
+ */
 public class StartUpActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
@@ -57,7 +60,7 @@ public class StartUpActivity extends AppCompatActivity {
         @Override
         public void run() {
             Date date = new Date();
-            String url = "http://open.iciba.com/dsapi/?date=" + date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
+            String url = "http://open.iciba.com/dsapi/?date=" + date;
             String dailySentenceJson = new ConnecteURL().getJosnString(url);
             DailySentence dailySentence = ParseJson.parseDailySentenceJson(dailySentenceJson);
             Message message = new Message();
@@ -69,7 +72,6 @@ public class StartUpActivity extends AppCompatActivity {
                 message.obj = getPictureBitMap(pictureUrl);
             }
             handler.sendMessage(message);
-
         }
     };
 
