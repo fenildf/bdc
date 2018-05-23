@@ -16,6 +16,11 @@ import com.simulation.bdc.Service.UserService;
 
 import java.util.regex.Pattern;
 
+/**
+ * 注册页面 Activity
+ * 允许用户通过电话号码进行注册，并判断用户输入
+ * 用户注册成功后跳转到 登录页面
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
@@ -33,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button registerButton;
     private EditText passwordEdiText;
     private EditText checkPasswordEditText;
+
     private Handler handler = new Handler() {
 
         public void handleMessage(Message msg) {
