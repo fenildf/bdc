@@ -18,7 +18,7 @@ public class Word {
 
     private List<Mean> means; //单词释义
 
-    private List<String> sentence; //单词例句
+    private List<Sentence> sentence; //单词例句
 
 
     public String getProUk() {
@@ -69,11 +69,11 @@ public class Word {
         this.means = means;
     }
 
-    public List<String> getSentence() {
+    public List<Sentence> getSentence() {
         return sentence;
     }
 
-    public void setSentence(List<String> sentence) {
+    public void setSentence(List<Sentence> sentence) {
         this.sentence = sentence;
     }
 

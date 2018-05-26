@@ -19,7 +19,7 @@ public class RequestURL {
      * @param password
      * @return
      */
-    public static String getUserLoginUrl(String phoneNo, String account, String password) {
+    public String getUserLoginUrl(String phoneNo, String account, String password) {
         String url = URL + "user/login";
         if (password == null) {
             return null;
@@ -44,7 +44,7 @@ public class RequestURL {
      * @param verificationCode
      * @return
      */
-    public static String getUserRegisterUrl(String phoneNo, String password, String verificationCode) {
+    public String getUserRegisterUrl(String phoneNo, String password, String verificationCode) {
         String url = URL + "user/regist";
         if (phoneNo == null || password == null || verificationCode == null) {
             url = null;
@@ -80,7 +80,7 @@ public class RequestURL {
         } else {
             url = null;
         }
-        return null;
+        return url;
     }
 
     /**

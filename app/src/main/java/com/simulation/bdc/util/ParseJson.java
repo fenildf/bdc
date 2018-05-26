@@ -3,6 +3,8 @@ package com.simulation.bdc.util;
 import android.util.Log;
 
 import com.simulation.bdc.enitity.DailySentence;
+import com.simulation.bdc.enitity.Mean;
+import com.simulation.bdc.enitity.Sentence;
 import com.simulation.bdc.enitity.User;
 import com.simulation.bdc.enitity.Word;
 
@@ -10,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ParseJson {
@@ -104,10 +107,60 @@ public class ParseJson {
         List<Word> wordList = null;
         try {
             JSONArray wordsJson = new JSONArray(jsonString);
+            wordList = new ArrayList<Word>();
+            for(int i = 0;i < wordsJson.length();i++){
+                JSONObject jsonObject = wordsJson.getJSONObject(i);
+                Word word = new Word();
+                word.setMeans(parseMean(jsonObject.getString("means")));
+                word.setWordId(jsonObject.getInt("wordId"));
+                word.setPhUk(jsonObject.getString("phUk"));
+                word.setPhUsa(jsonObject.getString("phUsa"));
+                word.setProUk(jsonObject.getString("proUk"));
+                word.setProUsa(jsonObject.getString("proUsa"));
+                word.setSentence(parseSentence(jsonObject.getString("sentences")));
+                word.setWordName(jsonObject.getString("wordName"));
+                wordList.add(word);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return null;
+        return wordList;
+    }
+
+    public static List<Mean> parseMean(String jsonString){
+        List<Mean> meanList = null;
+        try{
+            JSONArray meanJson = new JSONArray(jsonString);
+            meanList = new ArrayList<Mean>();
+            for(int i = 0;i < meanJson.length();i++){
+                JSONObject jsonObject = meanJson.getJSONObject(i);
+                Mean mean = new Mean();
+                mean.setMean(jsonObject.getString("mean"));
+                mean.setPart(jsonObject.getJSONObject("part").getString("part"));
+                meanList.add(mean);
+            }
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return meanList;
+    }
+
+    public static List<Sentence> parseSentence(String jsonString){
+        List<Sentence> sentenceList = null;
+        try{
+            JSONArray sentenceJson = new JSONArray(jsonString);
+            sentenceList = new ArrayList<Sentence>();
+            for(int i = 0;i < sentenceJson.length();i++){
+                JSONObject jsonObject = sentenceJson.getJSONObject(i);
+                Sentence sentence = new Sentence();
+                sentence.setText(jsonObject.getString("text"));
+                sentence.setTranslation(jsonObject.getString("translation"));
+                sentenceList.add(sentence);
+            }
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return sentenceList;
     }
 
 }

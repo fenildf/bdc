@@ -17,7 +17,7 @@ public class ConnecteURL {
      * @param url
      * @return
      */
-    public String getJosnString(String url) {
+    public String connecteUrl(String url) {
         String responseData = null;
         if (url != null) {
             try {

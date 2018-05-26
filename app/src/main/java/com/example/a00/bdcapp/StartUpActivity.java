@@ -61,7 +61,7 @@ public class StartUpActivity extends AppCompatActivity {
         public void run() {
             Date date = new Date();
             String url = "http://open.iciba.com/dsapi/?date=" + date;
-            String dailySentenceJson = new ConnecteURL().getJosnString(url);
+            String dailySentenceJson = new ConnecteURL().connecteUrl(url);
             DailySentence dailySentence = ParseJson.parseDailySentenceJson(dailySentenceJson);
             Message message = new Message();
             if (dailySentence == null) {

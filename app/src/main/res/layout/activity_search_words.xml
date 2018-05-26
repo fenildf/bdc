@@ -7,93 +7,15 @@
     android:orientation="vertical"
     tools:context="com.example.a00.fragment1.SearchWordsActivity">
     <SearchView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:iconifiedByDefault="true"
+        android:inputType="textCapWords"
+        android:imeOptions="actionSearch"
         android:id="@+id/search"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="please"
-        android:id="@+id/word"
-        android:layout_below="@+id/search"
-        android:layout_marginTop="5dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="发音"
-        android:id="@+id/pronounce"
-        android:layout_below="@+id/word"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/yinbiao"
-        android:layout_below="@+id/pronounce"
-        android:layout_marginTop="5dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="英 [pli:z]"
-            android:id="@+id/england"/>
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="美 [pliz]"
-            android:id="@+id/america"/>
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="基本释义"
-        android:id="@+id/meaning"
-        android:layout_below="@+id/yinbiao"
-        android:layout_marginTop="5dp"/>
-    <TextView
+    <ListView
+        android:id="@+id/word_list_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="int.请；
-vt. vi.使高兴； 使满意； 讨人喜欢； 讨好"
-        android:id="@+id/meaningshow"
-        android:layout_below="@+id/meaning"
-        android:layout_marginTop="5dp"
-        android:textSize="18sp"
-        android:inputType="textMultiLine"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="例句"
-        android:id="@+id/eg"
-        android:layout_below="@+id/meaningshow"
-        android:layout_marginTop="5dp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="1.I'd like to check the balance in my account please.
-请查一下我的账户余额。"
-        android:inputType="textMultiLine"
-        android:id="@+id/egshow"
-        android:layout_below="@+id/eg"
-        android:layout_marginTop="5dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/relatedwords"
-        android:text="派生词"
-        android:layout_below="@+id/egshow"
-        android:layout_marginTop="5dp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rwshow"
-        android:layout_below="@+id/relatedwords"
-        android:layout_marginTop="5dp"/>
-
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

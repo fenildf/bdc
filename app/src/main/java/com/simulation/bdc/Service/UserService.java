@@ -18,6 +18,7 @@ public class UserService {
 
     private ConnecteURL urlConnect = new ConnecteURL();
 
+    private RequestURL requestURL = new RequestURL();
     /**
      * 用户登录
      *
@@ -28,9 +29,9 @@ public class UserService {
      */
     public boolean userLogin(String phoneNo, String account, String password) {
 
-        String url = RequestURL.getUserLoginUrl(phoneNo, account, password);
+        String url = requestURL.getUserLoginUrl(phoneNo, account, password);
 
-        String responseData = urlConnect.getJosnString(url);
+        String responseData = urlConnect.connecteUrl(url);
         User user = ParseJson.parseUserJson(responseData);
         if (user != null) {
             Session.put("user", user);
@@ -50,8 +51,8 @@ public class UserService {
      * @return
      */
     public boolean userRegisgte(String phoneNo, String password, String verificationCode) {
-        String url = RequestURL.getUserRegisterUrl(phoneNo, password, verificationCode);
-        String responseData = urlConnect.getJosnString(url);
+        String url = requestURL.getUserRegisterUrl(phoneNo, password, verificationCode);
+        String responseData = urlConnect.connecteUrl(url);
         JSONObject jsonObject = null;
         try {
             if (responseData != null) {
