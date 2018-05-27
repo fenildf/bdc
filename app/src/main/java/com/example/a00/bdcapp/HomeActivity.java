@@ -17,6 +17,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
+
+
+/*
         viewPager = findViewById(R.id.viewpager);
         navigation = findViewById(R.id.navigation);
 
@@ -42,10 +46,10 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        setupViewPager(viewPager);
+        setupViewPager(viewPager);*/
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+/*    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
@@ -63,14 +67,14 @@ public class HomeActivity extends AppCompatActivity {
             }
             return false;
         }
-    };
+    };*/
 
-    //用来把三个底部导航栏指引的界面添加到点击的事件中，比如点击了BlankFragmentOne就是首页，Two就是课程
+/*    //用来把三个底部导航栏指引的界面添加到点击的事件中，比如点击了BlankFragmentOne就是首页，Two就是课程
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new BlankFragmentOne());
         adapter.addFragment(new BlankFragmentTwo());
         adapter.addFragment(new BlankFragmentThree());
         viewPager.setAdapter(adapter);
-    }
+    }*/
 }
