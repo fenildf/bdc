@@ -1,8 +1,13 @@
 package com.simulation.bdc.enitity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.widget.SearchView;
+
 import java.util.List;
 
-public class Word {
+public class Word implements Parcelable{
+
 
     private int wordId; //单词Id
 
@@ -83,6 +88,43 @@ public class Word {
 
     public void setWordId(int wordId) {
         this.wordId = wordId;
+    }
+
+    public static final Parcelable.Creator<Word> CREATOR = new Creator<Word>() {
+        @Override
+        public Word createFromParcel(Parcel source) {
+            Word word = new Word();
+            word.setWordId(source.readInt());
+            word.setProUk(source.readString());
+            word.setPhUsa(source.readString());
+            word.setPhUk(source.readString());
+            word.setPhUsa(source.readString());
+            word.setWordName(source.readString());
+            word.setMeans(source.readArrayList(Mean.class.getClassLoader()));
+            word.setSentence(source.readArrayList(Sentence.class.getClassLoader()));
+            return word;
+        }
+
+        @Override
+        public Word[] newArray(int size) {
+            return new Word[0];
+        }
+    };
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(wordId);
+        dest.writeString(proUk);
+        dest.writeString(proUsa);
+        dest.writeString(phUk);
+        dest.writeString(phUsa);
+        dest.writeString(wordName);
+        dest.writeList(means);
+        dest.writeList(sentence);
     }
 
     @Override
