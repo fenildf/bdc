@@ -16,11 +16,14 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="输入"/>
+            android:hint="输入"
+            android:layout_weight="1"
+            android:id="@+id/print"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="查询"/>
+            android:text="查询"
+            android:id="@+id/search"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,11 +52,34 @@
             android:layout_height="wrap_content"
             android:text="我的"
             android:id="@+id/mine"/>
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="开始背单词"
-            android:id="@+id/start_recite_word"/>
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="今日背诵"
+                    android:id="@+id/today_task"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="50"
+                    android:id="@+id/word_number"/>
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开始背单词"
+                android:id="@+id/start_recite_word"/>
+        </LinearLayout>
 
 
     </LinearLayout>
