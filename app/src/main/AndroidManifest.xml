@@ -47,7 +47,8 @@
         <activity android:name="com.example.a00.fragment3.NumberActivity" />
         <activity android:name="com.example.a00.fragment1.SearchWordsActivity" />
         <activity android:name="com.example.a00.fragment3.GetPictureActivity" />
-        <activity android:name="com.example.a00.fragment1.WordInfoActivity"></activity>
+        <activity android:name="com.example.a00.fragment1.WordInfoActivity" />
+        <activity android:name=".StartReciteWordActivity"></activity>
     </application>
 
 </manifest>
