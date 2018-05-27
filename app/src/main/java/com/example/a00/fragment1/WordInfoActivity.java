@@ -73,6 +73,6 @@ public class WordInfoActivity extends AppCompatActivity {
         bundle.putParcelable("word",word);
         intent.putExtras(bundle);
         intent.putExtra("wordName", wordName);
-        context.startActivity(intent);
+//        context.startActivity(intent);
     }
 }
