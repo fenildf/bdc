@@ -4,19 +4,21 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.a00.bdcapp.R;
+import com.example.a00.fragment1.WordInfoActivity;
 import com.simulation.bdc.enitity.Mean;
 import com.simulation.bdc.enitity.Word;
 
 import java.util.List;
 import java.util.Map;
 
-public class WordAdapter extends BaseAdapter {
+public class WordAdapter extends BaseAdapter implements AdapterView.OnItemClickListener{
     private Context context;   //运行上下文
     List<Word> wordList;  //单词集合
     private LayoutInflater listContainer;     //视图容器
@@ -68,5 +70,19 @@ public class WordAdapter extends BaseAdapter {
             listItemView.word_mean.append(mean.getPart() + " " + mean.getMean());
         }
         return convertView;
+    }
+
+    /**
+     * 添加点击事件
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        ListItemView listItemView = (ListItemView) view.getTag();
+        Word word = listItemView.word;
+        WordInfoActivity.actionStart(context, word);
     }
 }
