@@ -83,6 +83,6 @@ public class WordAdapter extends BaseAdapter implements AdapterView.OnItemClickL
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ListItemView listItemView = (ListItemView) view.getTag();
         Word word = listItemView.word;
-        WordInfoActivity.actionStart(context, word);
+        WordInfoActivity.actionStart(context,word,null);
     }
 }

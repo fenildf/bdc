@@ -26,9 +26,7 @@ import java.util.concurrent.TimeUnit;
 
 public class SearchWordsActivity extends AppCompatActivity {
     private static final String TAG = "SearchWordsActivity";
-    private SearchView searchView;
-    private TextView word,pronounce,england,america,meaning,meaningshow,eg,egshow,relatedwords,rwshow;
-    private ImageButton enpronounce,ampronounce;
+    private SearchView searchView;//搜索框
     private ListView wordListView;//单词列表
     private ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(10);
 
@@ -43,8 +41,8 @@ public class SearchWordsActivity extends AppCompatActivity {
         searchView = findViewById(R.id.search);
         searchView.setIconified(false);
         searchView.setSubmitButtonEnabled(true);
-
         wordListView = (ListView) findViewById(R.id.word_list_view);
+
         searchView.setOnQueryTextListener(searchQueryTextList);
 
     }
@@ -52,12 +50,21 @@ public class SearchWordsActivity extends AppCompatActivity {
     private SearchView.OnQueryTextListener searchQueryTextList =  new SearchView.OnQueryTextListener() {
         List<Word> wordList = null;
         @Override
-        public boolean onQueryTextSubmit(String query) {
+        public boolean onQueryTextSubmit(final String query) {
 
             if("".equals(query) || query== null){
                 return false;
             } else {
-//                Intent intent = new Intent(S)
+                if(lastThread != null){
+                    lastThread.interrupt();
+                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Word word = wordService.queryWordByWordName(query);
+                    }
+                }).start();
+
                 return true;
             }
         }
@@ -67,7 +74,6 @@ public class SearchWordsActivity extends AppCompatActivity {
             Log.i(TAG, "run: " + newText);
             if(newText != null && newText.length() > 0) {
                 currentSearchTip = newText;
-                Toast.makeText(SearchWordsActivity.this, newText, Toast.LENGTH_SHORT).show();
                 if(lastThread != null){
                     lastThread.interrupt();
                 }
@@ -80,25 +86,30 @@ public class SearchWordsActivity extends AppCompatActivity {
                         handler.sendMessage(msg);
                     }
                 });
-                schedule(lastThread, 0);
+                schedule(lastThread, 200);
             }
             return true;
         }
     };
+
+    /**
+     * 设置线程休眠
+     * @param command
+     * @param delayTimeMills
+     * @return
+     */
     public ScheduledFuture<?> schedule(Runnable command, long delayTimeMills) {
         return scheduledExecutor.schedule(command, delayTimeMills, TimeUnit.MILLISECONDS);
     }
 
-
+    /**
+     * 显示在线提示
+     */
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             List<Word> wordList = (List<Word>) msg.obj;
             if(wordList != null) {
-//                List<Word> showList = wordList;
-//                if(wordList.size() > 10){
-//                    showList = wordList.subList(0,10);
-//                }
                 WordAdapter wordAdapter = new WordAdapter(SearchWordsActivity.this, wordList);
                 wordListView.setAdapter(wordAdapter);
             }

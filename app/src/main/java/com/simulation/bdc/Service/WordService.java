@@ -17,7 +17,7 @@ public class WordService {
     private RequestURL requestUrl = new RequestURL();
 
     /**
-     * 通过单词拼写查找单词信息
+     * 通过单词拼写模糊查找单词信息
      * @param word
      * @return
      */
@@ -26,5 +26,21 @@ public class WordService {
         String wordJson = connecteURL.connecteUrl(url);
         List<Word> wordList = ParseJson.parseWord(wordJson);
         return wordList;
+    }
+
+    /**
+     * 通过单词拼写精确查找单词信息
+     * @param word
+     * @return
+     */
+    public Word queryWordByWordName(String word){
+        String url = requestUrl.queryWordByWordName(word);
+        String wordJson = connecteURL.connecteUrl(url);
+        List<Word> wordList = ParseJson.parseWord(wordJson);
+        if(wordList != null && !wordList.isEmpty()){
+            return wordList.get(0);
+        }else{
+            return null;
+        }
     }
 }

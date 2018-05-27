@@ -5,7 +5,7 @@ package com.simulation.bdc.util;
  */
 public class RequestURL {
 
-    public static String URL = "http://39.105.87.113:8080/lab.bdc/";
+    public static String URL = "http://123.206.29.55:8080/lab.bdc/";
 
     public static String USER_LOGIN_URL;
 
@@ -65,7 +65,7 @@ public class RequestURL {
     }
 
     /**
-     * 返回通过 单词Id或者单词拼写查找单词的网址
+     * 返回通过 单词Id或者单词拼写模糊查找单词的网址
      *
      * @param wordId
      * @param wordName
@@ -78,6 +78,21 @@ public class RequestURL {
         } else if (wordName != null && !wordName.equals("")) {
             url += "?wordName=" + wordName;
         } else {
+            url = null;
+        }
+        return url;
+    }
+
+    /**
+     * 返回通过单词拼写精确查找单词的网址
+     * @param wordName
+     * @return
+     */
+    public String queryWordByWordName(String wordName){
+        String url = URL + "word/query_by_word_info";
+        if(url != null){
+            url += "?wordName" + wordName;
+        }else{
             url = null;
         }
         return url;

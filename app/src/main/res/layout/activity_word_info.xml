@@ -29,27 +29,26 @@
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginLeft="@dimen/activity_vertical_margin" >
             <ImageButton
-                android:id="@+id/pro_uk"
+                android:id="@+id/pro_uk_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/pro_icon"/>
             <TextView
-                android:id="@+id/pu_uk"
+                android:id="@+id/ph_uk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="英式 /pli:z/"/>
+                android:text=" 英式 "/>
             <ImageButton
-                android:id="@+id/pro_usa"
+                android:id="@+id/pro_usa_icon"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/pro_icon"
-                android:text="dfdt"/>
+                android:background="@drawable/pro_icon"/>
             <TextView
-                android:id="@+id/pu_usa"
+                android:id="@+id/ph_usa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="美式 /pliz/"/>
+                android:text=" 美式 "/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/mean"
@@ -97,12 +96,12 @@
             android:layout_below="@+id/meaningshow"
             android:layout_marginTop="5dp"/>
         <TextView
+            android:layout_margin="@dimen/activity_vertical_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1.I'd like to check the balance in my account please.
-    请查一下我的账户余额。"
+            android:text="I'd like to check the balance in my account please.\n请查一下我的账户余额。"
             android:inputType="textMultiLine"
-            android:id="@+id/egshow"
+            android:id="@+id/sentence_text_view"
             android:layout_below="@+id/eg"
             android:layout_marginTop="5dp"/>
         <TextView
@@ -112,11 +111,12 @@
             android:text="派生词"
             android:layout_below="@+id/egshow"
             android:layout_marginTop="5dp"/>
+
         <TextView
+            android:id="@+id/rwshow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/rwshow"
             android:layout_below="@+id/relatedwords"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="5dp" />
     </LinearLayout>
 </LinearLayout>
