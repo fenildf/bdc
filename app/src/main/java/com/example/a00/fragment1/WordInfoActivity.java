@@ -57,8 +57,8 @@ public class WordInfoActivity extends AppCompatActivity {
                     sentenceTextView.append(sentence.getText() + "\n" + sentence.getTranslation() + "\n");
                 }
             }
-
         }
+
     }
 
 
