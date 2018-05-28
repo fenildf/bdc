@@ -7,49 +7,64 @@
     android:orientation="vertical"
     tools:context="com.example.a00.fragment1.ReviewPlanActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/word_show">
+        android:layout_height="wrap_content">
 
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/pro_icon"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="30dp"
-            android:id="@+id/pronouce"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="w_rd"
-            android:textSize="30sp"
-            android:layout_gravity="center"
-            android:id="@+id/word_complement"/>
-
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="听发音拼写单词"
-            android:gravity="center"
-            android:textSize="25sp"
-            android:id="@+id/word_write"/>
-    </LinearLayout>
+            android:orientation="vertical"
+            android:id="@+id/id_ll">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/word_show"
-        android:text="释义
-       多行输入
-       名词
-       动词
-       形容词"
-        android:textSize="25sp"
-        android:inputType="textMultiLine"
-        android:id="@+id/word_remind"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/word_show">
+
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/pro_icon"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="30dp"
+                    android:id="@+id/pronouce"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="w_rd"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:id="@+id/word_complement"/>
+
+                <EditText
+                    android:id="@+id/word_write"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="听发音拼写单词"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/word_show"
+                android:text="例句
+1.Ministers took the floor to denounce the decision to suspend constitutional rule.
+几位部长发言谴责暂停宪制的决定。
+2.Senior officers could be considering a coup to restore authoritarian rule.
+高官们可能会策划一场政变来复辟独裁统治。
+3.The North has been under Communist rule since 1954.
+北方自1954年起就一直处于共产党的统治之下。"
+                android:textSize="20sp"
+                android:inputType="textMultiLine"
+                android:id="@+id/word_remind"/>
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

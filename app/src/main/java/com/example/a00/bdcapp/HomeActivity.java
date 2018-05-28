@@ -46,6 +46,7 @@ public class HomeActivity extends AppCompatActivity {
         todayTask = findViewById(R.id.today_task);
         wordNumber = findViewById(R.id.word_number);
         startReciteWord = findViewById(R.id.start_recite_word);
+
         //点击查询，跳转到单词释义显示界面
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +75,7 @@ public class HomeActivity extends AppCompatActivity {
         mine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, BlankFragmentThree.class);
+                Intent intent = new Intent(HomeActivity.this, MineActivity.class);
                 startActivity(intent);
             }
         });

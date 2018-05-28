@@ -167,19 +167,22 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:gravity="center_horizontal">
+
         <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="认识"/>
+        android:text="认识"  android:id="@+id/know"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="加入生词本"/>
+            android:text="加入生词本"
+            android:id="@+id/add_wordlist"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="不认识"/>
+            android:text="不认识"
+            android:id="@+id/not_know"/>
     </LinearLayout>
 
 </RelativeLayout>
