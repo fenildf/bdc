@@ -1,6 +1,7 @@
 package com.simulation.bdc.enitity;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
 
@@ -25,6 +26,16 @@ public class User {
     private String phoneNo; //用户电话号码
 
     private String email; //用户邮箱
+
+    private List<UserPlan> plans;
+
+    public List<UserPlan> getPlans() {
+        return plans;
+    }
+
+    public void setPlans(List<UserPlan> plans) {
+        this.plans = plans;
+    }
 
     public int getUserId() {
         return userId;
@@ -128,6 +139,7 @@ public class User {
                 ", registerTime=" + registerTime +
                 ", phoneNo='" + phoneNo + '\'' +
                 ", email='" + email + '\'' +
+                ", plans=" + plans +
                 '}';
     }
 }

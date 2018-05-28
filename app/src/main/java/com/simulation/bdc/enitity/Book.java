@@ -10,7 +10,7 @@ public class Book {
 
     private String coverPicture; //教材封面
 
-    private String grade; //教材适用年级
+    private Grade grade; //教材适用年级
 
     private Publisher publisher; //出版商信息
 
@@ -50,11 +50,11 @@ public class Book {
         this.coverPicture = coverPicture;
     }
 
-    public String getGrade() {
+    public Grade getGrade() {
         return grade;
     }
 
-    public void setGrade(String grade) {
+    public void setGrade(Grade grade) {
         this.grade = grade;
     }
 

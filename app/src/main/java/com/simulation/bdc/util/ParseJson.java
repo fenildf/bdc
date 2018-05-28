@@ -2,10 +2,15 @@ package com.simulation.bdc.util;
 
 import android.util.Log;
 
+import com.simulation.bdc.enitity.Book;
 import com.simulation.bdc.enitity.DailySentence;
+import com.simulation.bdc.enitity.Grade;
 import com.simulation.bdc.enitity.Mean;
+import com.simulation.bdc.enitity.Publisher;
 import com.simulation.bdc.enitity.Sentence;
+import com.simulation.bdc.enitity.Unit;
 import com.simulation.bdc.enitity.User;
+import com.simulation.bdc.enitity.UserPlan;
 import com.simulation.bdc.enitity.Word;
 
 import org.json.JSONArray;
@@ -15,6 +20,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 解析后台传过来的json数据
+ */
 public class ParseJson {
 
     private static final String TAG = "ParseJson";
@@ -61,6 +69,7 @@ public class ParseJson {
                 user.setPic(userJson.getString("pic"));
                 user.setRegisterTime(DateConverter.convert(userJson.getString("registerTime")));
                 user.setUserId(userJson.getInt("userId"));
+                user.setPlans(parseUserPlan(userJson.getString("plans")));
             } catch (JSONException e) {
                 Log.e(TAG, "parseUserJson: " + e);
             }
@@ -103,6 +112,11 @@ public class ParseJson {
         return dailySentence;
     }
 
+    /**
+     * 解析单词信息
+     * @param jsonString
+     * @return
+     */
     public static List<Word> parseWord(String jsonString) {
         List<Word> wordList = null;
         try {
@@ -127,6 +141,11 @@ public class ParseJson {
         return wordList;
     }
 
+    /**
+     * 解析单词释义
+     * @param jsonString
+     * @return
+     */
     public static List<Mean> parseMean(String jsonString){
         List<Mean> meanList = null;
         try{
@@ -145,6 +164,11 @@ public class ParseJson {
         return meanList;
     }
 
+    /**
+     * 解析例句信息
+     * @param jsonString
+     * @return
+     */
     public static List<Sentence> parseSentence(String jsonString){
         List<Sentence> sentenceList = null;
         try{
@@ -161,6 +185,121 @@ public class ParseJson {
             e.printStackTrace();
         }
         return sentenceList;
+    }
+
+    /**
+     * 解析 用户计划
+     * @param jsonString
+     * @return
+     */
+    public static List<UserPlan> parseUserPlan(String jsonString){
+        List<UserPlan> userPlans = null;
+        try{
+            JSONArray planJson = new JSONArray(jsonString);
+            userPlans = new ArrayList<UserPlan>();
+            for(int i = 0;i < planJson.length();i++){
+                JSONObject jsonObject = planJson.getJSONObject(i);
+                UserPlan userPlan = new UserPlan();
+                userPlan.setHasDone(jsonObject.getInt("hasDone"));
+                userPlan.setIsDoing(jsonObject.getInt("isDoing"));
+                userPlan.setPlanId(jsonObject.getInt("planId"));
+                userPlan.setPlanId(jsonObject.getInt("unitId"));
+                userPlan.setWordId(jsonObject.getInt("wordId"));
+                userPlan.setWordNumber(jsonObject.getInt("wordNumber"));
+                userPlan.setBook(parseBook(jsonObject.getJSONObject("book")));
+                userPlans.add(userPlan);
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return userPlans;
+    }
+
+    /**
+     * 解析教材信息
+     * @param bookJson
+     * @return
+     */
+    public static Book parseBook(JSONObject bookJson){
+        Book book = null;
+        try {
+            if(bookJson != null){
+                book = new Book();
+                book.setBookId(bookJson.getInt("bookId"));
+                book.setBookName(bookJson.getString("bookName"));
+                book.setCoverPicture(bookJson.getString("coverPicture"));
+                book.setGrade(parseGrade(bookJson.getJSONObject("grade")));
+                book.setPublisher(parsePublisher(bookJson.getJSONObject("publisher")));
+                book.setUnits(parseUnits(bookJson.getString("units")));
+            }
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return book;
+    }
+
+    /**
+     * 解析 年级信息
+     * @param jsonObject
+     * @return
+     */
+    public static Grade parseGrade(JSONObject jsonObject){
+        Grade grade = null;
+        try {
+            if(jsonObject != null){
+                grade = new Grade();
+                grade.setGradeId(jsonObject.getInt("gradeId"));
+                grade.setGrandeName(jsonObject.getString("gradeName"));
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return grade;
+    }
+
+    /**
+     * 解析 出版商信息
+     * @param jsonObject
+     * @return
+     */
+    public static Publisher parsePublisher(JSONObject jsonObject){
+        Publisher publisher = null;
+        try {
+            if(jsonObject != null){
+                publisher = new Publisher();
+                publisher.setPublisherId(jsonObject.getInt("publisherId"));
+                publisher.setPublisherName(jsonObject.getString("publisherName"));
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return publisher;
+    }
+
+    /**
+     * 解析教材单元信心
+     * @param jsonString
+     * @return
+     */
+    public static List<Unit> parseUnits(String jsonString){
+        List<Unit> unitList = null;
+        try{
+            JSONArray jsonArray = new JSONArray(jsonString);
+            if(jsonArray != null){
+                unitList = new ArrayList<Unit>();
+                for(int i = 0;i < jsonArray.length();i++){
+                    Unit unit = new Unit();
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    unit.setUnitId(jsonObject.getInt("unitId"));
+                    unit.setUnitName(jsonObject.getString("unitName"));
+                    unitList.add(unit);
+                }
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return unitList;
     }
 
 }

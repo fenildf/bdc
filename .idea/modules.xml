@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\simulation project\bdc\bdc\BdcApp.iml" filepath="C:\simulation project\bdc\bdc\BdcApp.iml" />
+      <module fileurl="file://C:/simulation project/bdc/bdc/BdcApp.iml" filepath="C:/simulation project/bdc/bdc/BdcApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\simulation project\bdc\bdc\app\app.iml" filepath="C:\simulation project\bdc\bdc\app\app.iml" />
+      <module fileurl="file://C:/simulation project/bdc/bdc/app/app.iml" filepath="C:/simulation project/bdc/bdc/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/bdc.iml" filepath="$PROJECT_DIR$/bdc.iml" />
-      <module fileurl="file://C:\simulation project\bdc\bdc\bdc.iml" filepath="C:\simulation project\bdc\bdc\bdc.iml" />
+      <module fileurl="file://C:/simulation project/bdc/bdc/bdc.iml" filepath="C:/simulation project/bdc/bdc/bdc.iml" />
     </modules>
   </component>
 </project>

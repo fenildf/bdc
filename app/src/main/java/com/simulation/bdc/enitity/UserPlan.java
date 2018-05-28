@@ -11,7 +11,7 @@ public class UserPlan {
 
     private int wordNumber; //计划每日背诵单词数
 
-    private int haoDone; //已背诵单词数
+    private int hasDone; //已背诵单词数
 
     private int wordId; //已背诵的单词
 
@@ -41,12 +41,12 @@ public class UserPlan {
         this.wordNumber = wordNumber;
     }
 
-    public int getHaoDone() {
-        return haoDone;
+    public int getHasDone() {
+        return hasDone;
     }
 
-    public void setHaoDone(int haoDone) {
-        this.haoDone = haoDone;
+    public void setHasDone(int haoDone) {
+        this.hasDone = haoDone;
     }
 
     public int getWordId() {
@@ -71,7 +71,7 @@ public class UserPlan {
                 "planId=" + planId +
                 ", isDoing=" + isDoing +
                 ", wordNumber=" + wordNumber +
-                ", haoDone=" + haoDone +
+                ", haoDone=" + hasDone +
                 ", wordId=" + wordId +
                 ", book=" + book +
                 '}';

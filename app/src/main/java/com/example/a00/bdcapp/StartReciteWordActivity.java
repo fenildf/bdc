@@ -41,5 +41,8 @@ public class StartReciteWordActivity extends AppCompatActivity {
         notKnow = findViewById(R.id.not_know);
         addWordlist = findViewById(R.id.add_wordlist);
 
+
+
+
     }
 }

@@ -43,7 +43,7 @@
                     android:id="@+id/ph_uk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" 英式 "/>
+                    android:text=" 英式  "/>
                 <ImageButton
                     android:id="@+id/pro_usa_icon"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
@@ -54,7 +54,7 @@
                     android:id="@+id/ph_usa"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" 美式 "/>
+                    android:text=" 美式  "/>
             </LinearLayout>
 
 
