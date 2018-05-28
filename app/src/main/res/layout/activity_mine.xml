@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.a00.bdcapp.MineActivity">
+
+
+    <!--
+
+        <ImageView
+            android:id="@+id/user_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/user_picture"
+        android:orientation="vertical">
+
+        <com.example.a00.CircleImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon"
+            />
+
+        <TextView
+            android:id="@+id/usernameshow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_picture"
+            android:gravity="center_horizontal"
+            android:text="小猪佩奇"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/user_revise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_picture"
+        android:background="#00000000"
+        android:text="修改个人信息" />
+
+    <Button
+        android:id="@+id/user_wordlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_revise"
+        android:background="#00000000"
+        android:text="单词本" />
+
+    <Button
+        android:id="@+id/user_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_setting"
+        android:background="#00000000"
+        android:text="退出登录" />
+
+    <Button
+        android:id="@+id/user_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_collect"
+        android:background="#00000000"
+        android:text="复习设置" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我的收藏"
+        android:id="@+id/user_collect"
+        android:layout_below="@+id/user_wordlist"
+        android:background="#00000000"/>
+</RelativeLayout>
