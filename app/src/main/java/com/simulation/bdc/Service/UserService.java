@@ -35,6 +35,7 @@ public class UserService {
         User user = ParseJson.parseUserJson(responseData);
         if (user != null) {
             Session.put("user", user);
+            Session.put("plans", user.getPlans());
             return true;
         } else {
             return false;

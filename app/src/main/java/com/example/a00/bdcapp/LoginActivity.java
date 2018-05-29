@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.simulation.bdc.Service.UserService;
+import com.simulation.bdc.util.Session;
 
 /**
  * 登录 页面Activity 用户可以输入 账号和密码进行登录
@@ -37,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
                     break;
                 }
                 case LOGINSUCESS: {
-                    Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "登录成功" + Session.getAttribute("user").toString(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
                     break;

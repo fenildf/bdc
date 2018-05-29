@@ -43,4 +43,18 @@ public class WordService {
             return null;
         }
     }
+
+    /**
+     * 通过单元Id查找单词
+     * @param unitId
+     * @return
+     */
+    public List<Word> queryWordByUnitId(int unitId){
+        List<Word> wordList = null;
+        String url = requestUrl.queryWordByUnitId(unitId);
+        Log.d(TAG, "queryWordByUnitId: " + url);
+        Log.d(TAG, "queryWordByUnitId: " + connecteURL.connecteUrl(url));
+        wordList = ParseJson.parseWord(connecteURL.connecteUrl(url));
+        return wordList;
+    }
 }

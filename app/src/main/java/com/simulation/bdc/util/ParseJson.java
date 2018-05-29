@@ -26,13 +26,8 @@ import java.util.List;
 public class ParseJson {
 
     private static final String TAG = "ParseJson";
+    private static String url = "http://123.206.29.55:8080/lab.bdc/";
 
-    /**
-     * 解析java服务端传过来的结果
-     *
-     * @param responseData
-     * @return
-     */
     public static int parseResult(String responseData) {
         int result = 0;
         try {
@@ -129,7 +124,7 @@ public class ParseJson {
                 word.setWordId(jsonObject.getInt("wordId"));
                 word.setPhUk(jsonObject.getString("phUk"));
                 word.setPhUsa(jsonObject.getString("phUsa"));
-                word.setProUk(jsonObject.getString("proUk"));
+                word.setProUk(url +jsonObject.getString("proUk"));
                 word.setProUsa(jsonObject.getString("proUsa"));
                 word.setSentence(parseSentence(jsonObject.getString("sentences")));
                 word.setWordName(jsonObject.getString("wordName"));
@@ -203,7 +198,7 @@ public class ParseJson {
                 userPlan.setHasDone(jsonObject.getInt("hasDone"));
                 userPlan.setIsDoing(jsonObject.getInt("isDoing"));
                 userPlan.setPlanId(jsonObject.getInt("planId"));
-                userPlan.setPlanId(jsonObject.getInt("unitId"));
+                userPlan.setUnitId(jsonObject.getInt("unitId"));
                 userPlan.setWordId(jsonObject.getInt("wordId"));
                 userPlan.setWordNumber(jsonObject.getInt("wordNumber"));
                 userPlan.setBook(parseBook(jsonObject.getJSONObject("book")));

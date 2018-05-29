@@ -11,11 +11,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a00.fragment1.MyCoursesActivity;
 import com.example.a00.fragment1.ReviewPlanActivity;
 import com.example.a00.fragment1.StoryReadingActivity;
 import com.example.a00.fragment1.WordInfoActivity;
+import com.simulation.bdc.enitity.User;
+import com.simulation.bdc.enitity.UserPlan;
+import com.simulation.bdc.util.Session;
+
+import java.util.List;
 
 
 /**
@@ -91,8 +97,12 @@ public class HomeActivity extends AppCompatActivity {
         startReciteWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this,StartReciteWordActivity.class);
-                startActivity(intent);
+                if(Session.getAttribute("plans") != null) {
+                    Intent intent = new Intent(HomeActivity.this, StartReciteWordActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(HomeActivity.this,"请先添加计划" + Session.getAttribute("user"),Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

@@ -56,7 +56,7 @@ public class WordAdapter extends BaseAdapter implements AdapterView.OnItemClickL
         ListItemView listItemView = null;
         if(convertView == null){
             listItemView = new ListItemView();
-            convertView = listContainer.inflate(R.layout.word_item,null);
+            convertView = listContainer.inflate(R.layout.item_word,null);
             listItemView.word_name = (TextView)convertView.findViewById(R.id.word_name);
             listItemView.word_mean = (TextView) convertView.findViewById(R.id.word_mean);
             convertView.setTag(listItemView);

@@ -114,4 +114,13 @@ public class RequestURL {
         return url;
     }
 
+    /**
+     * 返回 通过单元Id查找单词的网址
+     * @param unitId
+     * @return
+     */
+    public String queryWordByUnitId(int unitId){
+        String url = URL + "/word/query_by_unitId?unitId=" + unitId;
+        return url;
+    }
 }

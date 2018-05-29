@@ -15,6 +15,8 @@ public class UserPlan {
 
     private int wordId; //已背诵的单词
 
+    private int unitId;//已背诵到的单元
+
     private Book book; //计划教材
 
     public int getPlanId() {
@@ -45,6 +47,14 @@ public class UserPlan {
         return hasDone;
     }
 
+    public int getUnitId() {
+        return unitId;
+    }
+
+    public void setUnitId(int unitId) {
+        this.unitId = unitId;
+    }
+
     public void setHasDone(int haoDone) {
         this.hasDone = haoDone;
     }
@@ -71,8 +81,9 @@ public class UserPlan {
                 "planId=" + planId +
                 ", isDoing=" + isDoing +
                 ", wordNumber=" + wordNumber +
-                ", haoDone=" + hasDone +
+                ", hasDone=" + hasDone +
                 ", wordId=" + wordId +
+                ", unitId=" + unitId +
                 ", book=" + book +
                 '}';
     }
