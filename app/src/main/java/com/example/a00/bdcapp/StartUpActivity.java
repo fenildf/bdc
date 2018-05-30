@@ -17,6 +17,8 @@ import com.simulation.bdc.enitity.DailySentence;
 import com.simulation.bdc.util.ConnecteURL;
 import com.simulation.bdc.util.ParseJson;
 
+import org.litepal.tablemanager.Connector;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -85,6 +87,7 @@ public class StartUpActivity extends AppCompatActivity {
         dailySentenceImageView = findViewById(R.id.daily_sentence);
         Log.d(TAG, "onCreate: " + dailySentenceImageView);
         new Thread(getDailySentencePicture).start(); //访问网页获取每日一句图片
+        Connector.getDatabase();
 
         //渐变展示启动
         AlphaAnimation aa = new AlphaAnimation(0.3f, 1.0f);
