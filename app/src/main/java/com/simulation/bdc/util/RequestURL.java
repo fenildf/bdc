@@ -1,5 +1,10 @@
 package com.simulation.bdc.util;
 
+import android.util.Log;
+
+import com.simulation.bdc.enitity.User;
+import com.simulation.bdc.enitity.UserPlan;
+
 /**
  * 访问的网址
  */
@@ -119,8 +124,47 @@ public class RequestURL {
      * @param unitId
      * @return
      */
-    public String queryWordByUnitId(int unitId){
-        String url = URL + "/word/query_by_unitId?unitId=" + unitId;
+    public String queryWordByUnitId(int unitId,int userId){
+        String url = URL + "word/query_by_unitId?unitId=" + unitId + "&userId=" + userId;
+        return url;
+    }
+
+    /**
+     * 获取修改用户计划信息的网址
+     * @param userPlan
+     * @return
+     */
+    public String updateUserPlan(UserPlan userPlan){
+        StringBuffer url = new StringBuffer(URL + "/user/plan/update?");
+        url.append("planId=" + userPlan.getPlanId());
+        url.append("&unitId=" + userPlan.getUnitId());
+        url.append("&wordId=" + userPlan.getWordId());
+        url.append("&hasDone=" + userPlan.getHasDone());
+        url.append("&isDoing=" + userPlan.getIsDoing());
+        return url.toString();
+    }
+
+    /**
+     * 获取用户添加完成单词表的url
+     * @param userId
+     * @param wordId
+     * @return
+     */
+    public  String  addUserCompleteWord(int userId, int wordId){
+        String url = URL + "word/add_word_complete";
+        url += "?userId=" + userId + "&wordId=" + wordId;
+        return url;
+    }
+
+    /**
+     * 获取添加用户生词表 的url
+     * @param userId
+     * @param wordId
+     * @return
+     */
+    public String addNewWord(int userId, int wordId){
+        String url = URL + "user/newWord/add";
+        url += "?userId=" + userId + "&wordId=" + wordId;
         return url;
     }
 }

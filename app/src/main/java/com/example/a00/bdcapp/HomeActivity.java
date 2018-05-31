@@ -17,9 +17,12 @@ import com.example.a00.fragment1.MyCoursesActivity;
 import com.example.a00.fragment1.ReviewPlanActivity;
 import com.example.a00.fragment1.StoryReadingActivity;
 import com.example.a00.fragment1.WordInfoActivity;
+import com.simulation.bdc.Service.UserService;
 import com.simulation.bdc.enitity.User;
 import com.simulation.bdc.enitity.UserPlan;
 import com.simulation.bdc.util.Session;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
@@ -37,6 +40,8 @@ public class HomeActivity extends AppCompatActivity {
     private TextView todayTask;
     private TextView wordNumber;
     private Button startReciteWord;
+
+    private UserService userService = new UserService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +102,9 @@ public class HomeActivity extends AppCompatActivity {
         startReciteWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Session.getAttribute("plans") != null) {
+                User user = userService.queryLoginUser();
+                Toast.makeText(HomeActivity.this,userService.queryUserPlan(user.getUserId()).toString(),Toast.LENGTH_LONG).show();
+                if(userService.queryUserPlan(user.getUserId()) != null) {
                     Intent intent = new Intent(HomeActivity.this, StartReciteWordActivity.class);
                     startActivity(intent);
                 }else{

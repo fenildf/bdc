@@ -1,9 +1,18 @@
 package com.simulation.bdc.enitity;
 
+import android.util.Log;
+
+import org.litepal.crud.DataSupport;
+
 import java.util.Date;
 import java.util.List;
 
-public class User {
+public class User extends DataSupport {
+    private static final String TAG = "User";
+
+    public static final int LOGIN = 1;
+
+    private long id;//主键
 
     private int userId; //用户Id
 
@@ -27,14 +36,44 @@ public class User {
 
     private String email; //用户邮箱
 
+    private int isLogin; //是否正在登陆
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public static int getLOGIN() {
+        return LOGIN;
+    }
+
+    public int getIsLogin() {
+        return isLogin;
+    }
+
+    public void setIsLogin(int isLogin) {
+        this.isLogin = isLogin;
+    }
+
     private List<UserPlan> plans;
 
     public List<UserPlan> getPlans() {
+        if(plans == null  || plans.isEmpty()){
+            plans = DataSupport.where("userId = ?" ,getUserId()+"").find(UserPlan.class);
+            Log.d(TAG, "getPlans: " +  plans + "userId=?" + getUserId()+"");
+        }
         return plans;
     }
 
     public void setPlans(List<UserPlan> plans) {
         this.plans = plans;
+        if(plans != null){
+            DataSupport.saveAll(plans);
+            Log.d(TAG, "setPlans: " + plans );
+        }
     }
 
     public int getUserId() {

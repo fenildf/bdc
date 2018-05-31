@@ -6,12 +6,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.simulation.bdc.Service.UserService;
 import com.simulation.bdc.Service.WordService;
 import com.simulation.bdc.enitity.Book;
 import com.simulation.bdc.enitity.Mean;
@@ -22,6 +24,8 @@ import com.simulation.bdc.enitity.UserPlan;
 import com.simulation.bdc.enitity.Word;
 import com.simulation.bdc.util.Session;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,26 +34,41 @@ import java.util.List;
  * 有三个悬浮的Button、一个ScrollView（用于显示不能完全显示的界面）
  */
 public class StartReciteWordActivity extends AppCompatActivity {
-
+    private static final String TAG = "StartReciteWordActivity";
     private TextView wordTextView;//单词
     private ImageButton proUKImageButton, proUSAImageButton;//播放器
     private TextView phUKTextView, phUSATextView;//音标
     private TextView meaningTextView,eg,sameClassification,sameLookTextView;
     private TextView meaningShowTextView,egShowTextView,sameClassificationShow,sameSameLookShow;
-    private Button knowButton,addWordlist,notKnowButton;
+    private Button knowButton,notKnowButton;
 
     private WordService wordService = new WordService(); //单词的服务类
     private List<Word> wordList ;//单词列表
 
-    private UserPlan userPlan = ((List<UserPlan>) Session.getAttribute("plans")).get(0); //当前用户计划
+    private UserService userService = new UserService();
+
+    private User user;//用户信息
+    private UserPlan userPlan;//用户计划
 
     private int index = 0; //当前背诵到的单词在列表中的位置
+    private Book book;//计划中的教材信息
+    private Word word;//当前页面显示的单词
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        user = userService.queryLoginUser();
+
+        List<UserPlan> userPlans = user.getPlans();
+        if(!userPlans.isEmpty()){
+            userPlan = userPlans.get(0);
+        }
+        book = userPlan.getBook();
+        //获取单词列表
+        getWords();
+
         setContentView(R.layout.activity_start_recite_word);
 
         wordTextView = findViewById(R.id.word);
@@ -65,35 +84,124 @@ public class StartReciteWordActivity extends AppCompatActivity {
         egShowTextView = findViewById(R.id.eg_show);
         sameClassificationShow = findViewById(R.id.same_classification_show);
         sameSameLookShow = findViewById(R.id.same_look_show);
+
         knowButton = findViewById(R.id.know);
         notKnowButton = findViewById(R.id.not_know);
-        addWordlist = findViewById(R.id.add_wordlist);
-        //获取单词列表
-        getWords();
+
 
 
         notKnowButton.setOnClickListener(nextWordLister);
-        addWordlist.setOnClickListener(nextWordLister);
         knowButton.setOnClickListener(nextWordLister);
 
     }
-
+    //底部按钮的监听器
     private View.OnClickListener nextWordLister = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            index++;
-            if(index > wordList.size()){
-                Toast.makeText(StartReciteWordActivity.this,"已完成计划",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(StartReciteWordActivity.this,HomeActivity.class);
-                startActivity(intent);
+            switch (v.getId()){
+                case R.id.know:{
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(!wordService.addUserCompleteWord(user.getUserId(),word.getWordId())){
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(StartReciteWordActivity.this, "网络异常", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        }
+                    }).start();
+                    break;
+                }
+                case R.id.not_know:{
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(!wordService.addNewWord(user.getUserId(),word.getWordId())){
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(StartReciteWordActivity.this, "网络异常", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        }
+                    }).start();
+                    break;
+                }
             }
-            showWord();
+            showNextWord();
         }
     };
 
-
+    //显示下一个单词
+    public void showNextWord(){
+        index++;
+        if(index < wordList.size()){
+            userPlan.setHasDone(userPlan.getHasDone()+1); //计划已完成的单词加一
+            userPlan.setWordId(word.getWordId());
+            word = wordList.get(index);
+        }else{
+            wordList.clear();
+            for(Unit unit : book.getUnits()){
+                if(unit.getUnitId() > userPlan.getUnitId()){
+                    userPlan.setUnitId(unit.getUnitId());
+                    final int unitId = unit.getUnitId();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Message msg = new Message();
+                            msg.obj = wordService.queryWordByUnitId(unitId,user.getUserId());
+                            handler.sendMessage(msg);
+                        }
+                    }).start();
+                    break;
+                }
+            }
+        }
+        //更新 用户计划的子线程
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if(!userService.updateUserPlan(userPlan)) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(StartReciteWordActivity.this, "网络异常", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        }).start();
+        showWord(); //将下一个单词填充到页面内上
+    }
+    /**
+     * 获取将要背诵的单词
+     * @return
+     */
+    public void getWords(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<Word> wordList = new ArrayList<Word>();
+                for(Unit unit: book.getUnits()){
+                    if(unit.getUnitId() == userPlan.getUnitId()) {
+                        wordList.addAll(wordService.queryWordByUnitId(unit.getUnitId(),user.getUserId()));
+                    }
+                }
+                Log.d(TAG, "run: " + DataSupport.where("bookId=?" ,userPlan.getBookId()+"").find(Book.class));
+                Log.d(TAG, "run: " + userPlan.getBookId());
+                Message msg = new Message();
+                msg.obj = wordList;
+                handler.sendMessage(msg);
+            }
+        }).start();
+    }
+    //将单词信息填充到页面上
     public void showWord(){
-        Word word = wordList.get(index);
+
         wordTextView.setText(word.getWordName()); //显示单词拼写
 
         phUKTextView.setText("英式  " + word.getPhUk()); //显示单词英式音标
@@ -116,47 +224,50 @@ public class StartReciteWordActivity extends AppCompatActivity {
             }
         }
 
-
-    }
-
-    /**
-     * 获取将要背诵的单词
-     * @return
-     */
-    public void getWords(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Book book = userPlan.getBook();
-                List<Word> wordList = new ArrayList<Word>();
-                for(Unit unit: book.getUnits()){
-                    if(unit.getUnitId() >= userPlan.getUnitId()) {
-                        wordList.addAll(wordService.queryWordByUnitId(unit.getUnitId()));
-                    }
-                }
-                Message msg = new Message();
-                msg.obj = wordList;
-                handler.sendMessage(msg);
+        //显示以前学过的同类型单词
+        sameClassificationShow.setText("");
+        if(word.getSameTypeWord() != null) {
+            for (int i = 0; i < word.getSameTypeWord().size(); i++) {
+                sameClassificationShow.append(word.getSameTypeWord().get(i) + "   ");
             }
-        }).start();
+        }
+
+        //显示以前学过的形似的单词
+        sameSameLookShow.setText("");
+        if(word.getAlikeWord() != null) {
+            for (int i = 0; i < word.getAlikeWord().size(); i++) {
+                sameSameLookShow.append(word.getAlikeWord().get(i) + "  ");
+            }
+        }
+
+
+
+
     }
 
+    //更新页面
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if(msg.obj != null){
                 wordList = (List<Word>) msg.obj;
-
-                //确定当前 所背诵单词在单词列表中的位置
-                for(int i = 0;i < wordList.size();i++){
-                    if(userPlan.getWordId() == wordList.get(i).getWordId()){
-                        index = i;
+                if(wordList.isEmpty() && userPlan.getUnitId() == book.getUnits().get(book.getUnits().size()-1).getUnitId()){
+                    Toast.makeText(StartReciteWordActivity.this,"完成计划",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(StartReciteWordActivity.this,HomeActivity.class);
+                    startActivity(intent);
+                }else {
+                    //确定当前 所背诵单词在单词列表中的位置
+                    for (int i = 0; i < wordList.size(); i++) {
+                        if (userPlan.getWordId() == wordList.get(i).getWordId()) {
+                            index = i;
+                            word = wordList.get(i);
+                            break;
+                        }
                     }
+                    //将单词信息 填充到页面
+                    showWord();
                 }
-//
-                //将单词信息 填充到页面
-                showWord();
             }
         }
     };

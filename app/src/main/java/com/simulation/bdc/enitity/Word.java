@@ -4,10 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.widget.SearchView;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.List;
 
 public class Word implements Parcelable{
 
+    private long id;//主键
 
     private int wordId; //单词Id
 
@@ -25,6 +28,18 @@ public class Word implements Parcelable{
 
     private List<Sentence> sentence; //单词例句
 
+    private List<String> alikeWord;// 相似单词
+
+    private List<String> sameTypeWord;// 同种类型单词
+
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getProUk() {
         return proUk;
@@ -90,6 +105,22 @@ public class Word implements Parcelable{
         this.wordId = wordId;
     }
 
+    public List<String> getAlikeWord() {
+        return alikeWord;
+    }
+
+    public void setAlikeWord(List<String> alikeWord) {
+        this.alikeWord = alikeWord;
+    }
+
+    public List<String> getSameTypeWord() {
+        return sameTypeWord;
+    }
+
+    public void setSameTypeWord(List<String> sameTypeWord) {
+        this.sameTypeWord = sameTypeWord;
+    }
+
     public static final Parcelable.Creator<Word> CREATOR = new Creator<Word>() {
         @Override
         public Word createFromParcel(Parcel source) {
@@ -138,6 +169,8 @@ public class Word implements Parcelable{
                 ", wordName='" + wordName + '\'' +
                 ", means=" + means +
                 ", sentence=" + sentence +
+                ", alikeWord=" + alikeWord +
+                ", sameTypeWord=" + sameTypeWord +
                 '}';
     }
 }

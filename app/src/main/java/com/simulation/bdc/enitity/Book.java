@@ -1,8 +1,11 @@
 package com.simulation.bdc.enitity;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.List;
 
-public class Book {
+public class Book extends DataSupport{
+
 
     private int bookId; //教材Id
 
@@ -17,6 +20,14 @@ public class Book {
     private List<Unit> units; //单元信息
 
     private int wordNumber;//教材单词总数
+
+//    public long getId() {
+//        return id;
+//    }
+//
+//    public void setId(long id) {
+//        this.id = id;
+//    }
 
     public int getWordNumber() {
         return wordNumber;
@@ -71,6 +82,11 @@ public class Book {
     }
 
     public void setUnits(List<Unit> units) {
+        if(!units.isEmpty()){
+            for (int i = 0;i < units.size();i++){
+                units.get(i).save();
+            }
+        }
         this.units = units;
     }
 

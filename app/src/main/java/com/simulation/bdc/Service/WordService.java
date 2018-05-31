@@ -49,12 +49,46 @@ public class WordService {
      * @param unitId
      * @return
      */
-    public List<Word> queryWordByUnitId(int unitId){
+    public List<Word> queryWordByUnitId(int unitId,int userId){
         List<Word> wordList = null;
-        String url = requestUrl.queryWordByUnitId(unitId);
+        String url = requestUrl.queryWordByUnitId(unitId, userId);
         Log.d(TAG, "queryWordByUnitId: " + url);
         Log.d(TAG, "queryWordByUnitId: " + connecteURL.connecteUrl(url));
         wordList = ParseJson.parseWord(connecteURL.connecteUrl(url));
         return wordList;
+    }
+
+    /**
+     * 添加用户已完成单词
+     * @param userId
+     * @param wordId
+     * @return
+     */
+    public  boolean addUserCompleteWord(int userId,int wordId){
+        String url = requestUrl.addUserCompleteWord(userId,wordId);
+        Log.d(TAG, "addUserCompleteWord: " + url);
+        String responseData = connecteURL.connecteUrl(url);
+        if(ParseJson.parseResult(responseData) != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * 添加用户生词表
+     * @param userId
+     * @param wordId
+     * @return
+     */
+    public boolean addNewWord(int userId,int wordId){
+        String url = requestUrl.addNewWord(userId,wordId);
+        Log.d(TAG, "addNewWord: " + url);
+        String responseData = connecteURL.connecteUrl(url);
+        if(ParseJson.parseResult(responseData) != 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

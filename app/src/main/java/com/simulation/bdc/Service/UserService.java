@@ -2,7 +2,10 @@ package com.simulation.bdc.Service;
 
 import android.util.Log;
 
+import com.simulation.bdc.enitity.Book;
+import com.simulation.bdc.enitity.Unit;
 import com.simulation.bdc.enitity.User;
+import com.simulation.bdc.enitity.UserPlan;
 import com.simulation.bdc.util.ConnecteURL;
 import com.simulation.bdc.util.ParseJson;
 import com.simulation.bdc.util.RequestURL;
@@ -10,8 +13,10 @@ import com.simulation.bdc.util.Session;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.litepal.crud.DataSupport;
 
 import java.io.File;
+import java.util.List;
 
 public class UserService {
     private static final String TAG = "UserService";
@@ -32,10 +37,17 @@ public class UserService {
         String url = requestURL.getUserLoginUrl(phoneNo, account, password);
 
         String responseData = urlConnect.connecteUrl(url);
+
+        DataSupport.deleteAll(User.class);
+        DataSupport.deleteAll(UserPlan.class);
+        DataSupport.deleteAll(Book.class);
+        DataSupport.deleteAll(Unit.class);
+
         User user = ParseJson.parseUserJson(responseData);
         if (user != null) {
-            Session.put("user", user);
-            Session.put("plans", user.getPlans());
+            user.setPassword(password);
+            user.setIsLogin(User.LOGIN);
+            user.save();
             return true;
         } else {
             return false;
@@ -78,6 +90,45 @@ public class UserService {
     public boolean updateUserInfo(User user, File file) {
 
         return false;
+    }
+
+    /**
+     * 在本地查询正在登陆的用户信息
+     * @return
+     */
+    public User queryLoginUser(){
+        List<User> users = DataSupport.where("isLogin = ?",User.LOGIN + "").find(User.class);
+        if(users != null && !users.isEmpty()){
+            return users.get(0);
+        }else{
+            return null;
+        }
+    }
+
+    /**
+     * 在本地查询用户计划信息
+     * @param userId
+     * @return
+     */
+    public List<UserPlan> queryUserPlan(int userId){
+        return DataSupport.where("userId=?", userId+"").find(UserPlan.class);
+    }
+
+    /**
+     * 修改用户记录信息
+     * @param userPlan
+     * @return
+     */
+    public boolean updateUserPlan(UserPlan userPlan){
+        userPlan.save();
+        String url = requestURL.updateUserPlan(userPlan);
+        Log.d(TAG, "updateUserPlan: " + url);
+        String responseData = urlConnect.connecteUrl(url);
+        if(ParseJson.parseResult(responseData) != 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

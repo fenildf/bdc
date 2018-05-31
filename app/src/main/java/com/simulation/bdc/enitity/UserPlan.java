@@ -1,9 +1,14 @@
 package com.simulation.bdc.enitity;
 
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
+
 /**
  * 用户计划
  */
-public class UserPlan {
+public class UserPlan extends DataSupport{
+    private long id;//主键
 
     private int planId; //用户计划Id
 
@@ -18,6 +23,30 @@ public class UserPlan {
     private int unitId;//已背诵到的单元
 
     private Book book; //计划教材
+
+    private int bookId;//计划教材Id
+
+    private int userId;//用户Id
+
+    public int getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     public int getPlanId() {
         return planId;
@@ -68,23 +97,34 @@ public class UserPlan {
     }
 
     public Book getBook() {
+        if(book == null){
+            book = DataSupport.where("bookId=?",bookId + "").findFirst(Book.class);
+            book.setUnits(DataSupport.where("bookId=?" ,book.getBookId() + "").find(Unit.class));
+        }
         return book;
     }
 
     public void setBook(Book book) {
         this.book = book;
+        if(book != null) {
+            setBookId(book.getBookId());
+            book.save();
+        }
     }
 
     @Override
     public String toString() {
         return "UserPlan{" +
-                "planId=" + planId +
+                "id=" + id +
+                ", planId=" + planId +
                 ", isDoing=" + isDoing +
                 ", wordNumber=" + wordNumber +
                 ", hasDone=" + hasDone +
                 ", wordId=" + wordId +
                 ", unitId=" + unitId +
                 ", book=" + book +
+                ", bookId=" + bookId +
+                ", userId=" + userId +
                 '}';
     }
 }

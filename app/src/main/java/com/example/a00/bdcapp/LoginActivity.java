@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
                     break;
                 }
                 case LOGINSUCESS: {
-                    Toast.makeText(LoginActivity.this, "登录成功" + Session.getAttribute("user").toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
                     break;
@@ -75,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.login);
         registerButton = findViewById(R.id.register);
         forgetPasswordTextView = findViewById(R.id.forgetpassword);
+
 
         //点击登录按钮 如果登录成功则跳转到首页 失败则提示“账号或者密码错误”
         loginButton.setOnClickListener(new View.OnClickListener() {

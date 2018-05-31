@@ -128,6 +128,8 @@ public class ParseJson {
                 word.setProUsa(jsonObject.getString("proUsa"));
                 word.setSentence(parseSentence(jsonObject.getString("sentences")));
                 word.setWordName(jsonObject.getString("wordName"));
+                word.setAlikeWord(parseString(jsonObject.getJSONArray("alikeWord")));
+                word.setSameTypeWord(parseString(jsonObject.getJSONArray("sameTypeWord")));
                 wordList.add(word);
             }
         } catch (JSONException e) {
@@ -202,12 +204,33 @@ public class ParseJson {
                 userPlan.setWordId(jsonObject.getInt("wordId"));
                 userPlan.setWordNumber(jsonObject.getInt("wordNumber"));
                 userPlan.setBook(parseBook(jsonObject.getJSONObject("book")));
+                userPlan.setUserId(jsonObject.getInt("userId"));
                 userPlans.add(userPlan);
             }
         }catch (JSONException e){
             e.printStackTrace();
         }
         return userPlans;
+    }
+
+    /**
+     * 解析包含字符串的json数组
+     * @param jsonArray
+     * @return
+     */
+    public static List<String> parseString(JSONArray jsonArray){
+        List<String> strings = null;
+        if(jsonArray != null){
+            try {
+                strings = new ArrayList<String>();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    strings.add(jsonArray.getString(i));
+                }
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+        return strings;
     }
 
     /**
@@ -288,6 +311,7 @@ public class ParseJson {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     unit.setUnitId(jsonObject.getInt("unitId"));
                     unit.setUnitName(jsonObject.getString("unitName"));
+                    unit.setBookId(jsonObject.getInt("bookId"));
                     unitList.add(unit);
                 }
             }
