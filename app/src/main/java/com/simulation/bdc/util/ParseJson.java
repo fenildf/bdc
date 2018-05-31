@@ -124,7 +124,7 @@ public class ParseJson {
                 word.setWordId(jsonObject.getInt("wordId"));
                 word.setPhUk(jsonObject.getString("phUk"));
                 word.setPhUsa(jsonObject.getString("phUsa"));
-                word.setProUk(url +jsonObject.getString("proUk"));
+                word.setProUk(jsonObject.getString("proUk"));
                 word.setProUsa(jsonObject.getString("proUsa"));
                 word.setSentence(parseSentence(jsonObject.getString("sentences")));
                 word.setWordName(jsonObject.getString("wordName"));

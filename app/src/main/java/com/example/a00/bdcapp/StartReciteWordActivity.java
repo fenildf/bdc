@@ -1,7 +1,10 @@
 package com.example.a00.bdcapp;
 
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.Image;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +29,8 @@ import com.simulation.bdc.util.Session;
 
 import org.litepal.crud.DataSupport;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +59,7 @@ public class StartReciteWordActivity extends AppCompatActivity {
     private Book book;//计划中的教材信息
     private Word word;//当前页面显示的单词
 
-
+    private String ip = "http://123.206.29.55/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +98,10 @@ public class StartReciteWordActivity extends AppCompatActivity {
         notKnowButton.setOnClickListener(nextWordLister);
         knowButton.setOnClickListener(nextWordLister);
 
+        proUKImageButton.setOnClickListener(playProListener);
+        proUSAImageButton.setOnClickListener(playProListener);
+        phUKTextView.setOnClickListener(playProListener);
+        phUSATextView.setOnClickListener(playProListener);
     }
     //底部按钮的监听器
     private View.OnClickListener nextWordLister = new View.OnClickListener() {
@@ -136,6 +145,48 @@ public class StartReciteWordActivity extends AppCompatActivity {
         }
     };
 
+    //播放音频的Listener
+    private View.OnClickListener playProListener = new View.OnClickListener(){
+        private MediaPlayer mediaPlayer = new MediaPlayer();
+        @Override
+        public void onClick(View v) {
+            final int viewId = v.getId();
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Log.d(TAG, "run: " + ip + word.getProUk());
+                        Log.d(TAG, "run: " + ip + word.getProUsa());
+                        mediaPlayer.reset();
+                        switch (viewId){
+                            case R.id.pro_uk_icon:
+                            case R.id.ph_uk:{
+                                mediaPlayer.setDataSource(ip + word.getProUk()); // 设置数据源
+                                break;
+                            }
+                            case R.id.pro_usa_icon:
+                            case R.id.ph_usa:{
+                                mediaPlayer.setDataSource(StartReciteWordActivity.this,Uri.parse(ip + word.getProUsa())); // 设置数据源
+                                break;
+                            }
+                        }
+                        mediaPlayer.prepareAsync(); // prepare自动播放 ;
+                        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                            @Override
+                            public void onPrepared(MediaPlayer mp) {
+                                // 装载完毕回调
+                                mediaPlayer.start();
+                             }
+                        });
+                    }catch (Exception e){
+                        Log.d(TAG, "onClick: " + e);
+                    }
+                }
+            }).start();
+
+        }
+    };
     //显示下一个单词
     public void showNextWord(){
         index++;
@@ -204,9 +255,9 @@ public class StartReciteWordActivity extends AppCompatActivity {
 
         wordTextView.setText(word.getWordName()); //显示单词拼写
 
-        phUKTextView.setText("英式  " + word.getPhUk()); //显示单词英式音标
+        phUKTextView.setText(" 英式/" + word.getPhUk() + "/"); //显示单词英式音标
 
-        phUSATextView.setText("美式  " + word.getPhUsa()); //显示单词美式音标
+        phUSATextView.setText(" 美式/" + word.getPhUsa() + "/"); //显示单词美式音标
 
         //显示单词释义
         meaningShowTextView.setText("");
@@ -271,5 +322,4 @@ public class StartReciteWordActivity extends AppCompatActivity {
             }
         }
     };
-
 }
