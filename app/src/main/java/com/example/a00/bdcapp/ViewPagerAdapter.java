@@ -13,23 +13,26 @@ import java.util.List;
  */
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
-    private final List<Fragment> mFragmentList = new ArrayList<>();
 
-    public ViewPagerAdapter(FragmentManager manager) {
-        super(manager);
+    private FragmentManager mfragmentManager;
+    private List<Fragment> mlist;
+
+    public ViewPagerAdapter(FragmentManager fm, List<Fragment> list) {
+        super(fm);
+        this.mlist = list;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return mFragmentList.get(position);
+        return mlist.get(position);
     }
 
     @Override
     public int getCount() {
-        return mFragmentList.size();
+        return mlist.size();
     }
 
     public void addFragment(Fragment fragment) {
-        mFragmentList.add(fragment);
+        mlist.add(fragment);
     }
 }
