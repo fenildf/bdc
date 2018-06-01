@@ -41,7 +41,12 @@ public class HomeActivity extends AppCompatActivity {
     private TextView wordNumber;
     private Button startReciteWord;
 
+
     private UserService userService = new UserService();
+
+    private User user = userService.queryLoginUser();
+
+    private UserPlan userPlan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +62,14 @@ public class HomeActivity extends AppCompatActivity {
         todayTask = findViewById(R.id.today_task);
         wordNumber = findViewById(R.id.word_number);
         startReciteWord = findViewById(R.id.start_recite_word);
+
+        List<UserPlan> userPlans = userService.queryUserPlan(user.getUserId());
+
+        if(userPlans != null && !userPlans.isEmpty()){
+            userPlan = userPlans.get(0);
+            wordNumber.setText(userPlan.getWordNumber() + "");
+        }
+
 
         //点击查询，跳转到单词释义显示界面
         search.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +115,6 @@ public class HomeActivity extends AppCompatActivity {
         startReciteWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                User user = userService.queryLoginUser();
                 Toast.makeText(HomeActivity.this,userService.queryUserPlan(user.getUserId()).toString(),Toast.LENGTH_LONG).show();
                 if(userService.queryUserPlan(user.getUserId()) != null) {
                     Intent intent = new Intent(HomeActivity.this, StartReciteWordActivity.class);

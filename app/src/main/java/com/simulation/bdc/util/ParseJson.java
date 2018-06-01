@@ -7,6 +7,7 @@ import com.simulation.bdc.enitity.DailySentence;
 import com.simulation.bdc.enitity.Grade;
 import com.simulation.bdc.enitity.Mean;
 import com.simulation.bdc.enitity.Publisher;
+import com.simulation.bdc.enitity.Review;
 import com.simulation.bdc.enitity.Sentence;
 import com.simulation.bdc.enitity.Unit;
 import com.simulation.bdc.enitity.User;
@@ -18,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,13 +30,20 @@ public class ParseJson {
     private static final String TAG = "ParseJson";
     private static String url = "http://123.206.29.55:8080/lab.bdc/";
 
+    /**
+     * 解析返回结果
+     * @param responseData
+     * @return
+     */
     public static int parseResult(String responseData) {
         int result = 0;
-        try {
-            JSONObject jsonObject = new JSONObject(responseData);
-            result = jsonObject.getInt("result");
-        } catch (JSONException e) {
-            Log.e(TAG, "parseResult: 解析json数据错误", e);
+        if(responseData != null) {
+            try {
+                JSONObject jsonObject = new JSONObject(responseData);
+                result = jsonObject.getInt("result");
+            } catch (JSONException e) {
+                Log.e(TAG, "parseResult: 解析json数据错误", e);
+            }
         }
         return result;
     }
@@ -112,30 +121,40 @@ public class ParseJson {
      * @param jsonString
      * @return
      */
-    public static List<Word> parseWord(String jsonString) {
+    public static List<Word> parseWords(String jsonString) {
         List<Word> wordList = null;
         try {
             JSONArray wordsJson = new JSONArray(jsonString);
             wordList = new ArrayList<Word>();
             for(int i = 0;i < wordsJson.length();i++){
                 JSONObject jsonObject = wordsJson.getJSONObject(i);
-                Word word = new Word();
-                word.setMeans(parseMean(jsonObject.getString("means")));
-                word.setWordId(jsonObject.getInt("wordId"));
-                word.setPhUk(jsonObject.getString("phUk"));
-                word.setPhUsa(jsonObject.getString("phUsa"));
-                word.setProUk(jsonObject.getString("proUk"));
-                word.setProUsa(jsonObject.getString("proUsa"));
-                word.setSentence(parseSentence(jsonObject.getString("sentences")));
-                word.setWordName(jsonObject.getString("wordName"));
-                word.setAlikeWord(parseString(jsonObject.getJSONArray("alikeWord")));
-                word.setSameTypeWord(parseString(jsonObject.getJSONArray("sameTypeWord")));
+                Word word = parseWord(jsonObject);
                 wordList.add(word);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return wordList;
+    }
+
+    public static Word parseWord(JSONObject jsonObject){
+        Word word = null;
+        try {
+            word = new Word();
+            word.setMeans(parseMean(jsonObject.getString("means")));
+            word.setWordId(jsonObject.getInt("wordId"));
+            word.setPhUk(jsonObject.getString("phUk"));
+            word.setPhUsa(jsonObject.getString("phUsa"));
+            word.setProUk(jsonObject.getString("proUk"));
+            word.setProUsa(jsonObject.getString("proUsa"));
+            word.setSentence(parseSentence(jsonObject.getString("sentences")));
+            word.setWordName(jsonObject.getString("wordName"));
+            word.setAlikeWord(parseString(jsonObject.getJSONArray("alikeWord")));
+            word.setSameTypeWord(parseString(jsonObject.getJSONArray("sameTypeWord")));
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return word;
     }
 
     /**
@@ -319,6 +338,29 @@ public class ParseJson {
             e.printStackTrace();
         }
         return unitList;
+    }
+
+    public static List<Review> parseReview(String jsonString){
+        List<Review> reviews = null;
+        try {
+            JSONArray jsonArray = new JSONArray(jsonString);
+            if(jsonArray != null){
+                reviews = new ArrayList<Review>();
+                for(int i = 0; i < jsonArray.length();i++){
+                    Review review = new Review();
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    review.setReviewId(jsonObject.getInt("reviewId"));
+                    review.setAddTime(new Date(jsonObject.getString("addTime")));
+                    review.setUserId(jsonObject.getInt("userId"));
+                    review.setWord(parseWord(jsonObject.getJSONObject("word")));
+                    review.setReviewTime(jsonObject.getInt("reviewTime"));
+                    reviews.add(review);
+                }
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return reviews;
     }
 
 }

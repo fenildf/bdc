@@ -11,6 +11,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.a00.bdcapp.R;
+import com.simulation.bdc.enitity.Review;
+import com.simulation.bdc.enitity.Word;
+
+import java.util.List;
 
 /**
  * 点击首页的泡泡中的复习
@@ -21,6 +25,12 @@ public class ReviewPlanActivity extends AppCompatActivity {
     private ImageButton pronounce;//单词发音
     private EditText wordWrite;//写出这个单词
     private TextView wordRemind;//单词提示
+
+
+    private Word word; //当前页面所显示单词
+    private Review review;//当前页面计划
+
+    private List<Review> reviews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

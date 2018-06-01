@@ -8,6 +8,7 @@
         <mapping class="com.simulation.bdc.enitity.Book"></mapping>
         <mapping class="com.simulation.bdc.enitity.Word"></mapping>
         <mapping class="com.simulation.bdc.enitity.Unit"></mapping>
+        <mapping class="com.simulation.bdc.enitity.Review"></mapping>
     </list>
 
 </litepal>
