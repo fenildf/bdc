@@ -167,4 +167,33 @@ public class RequestURL {
         url += "?userId=" + userId + "&wordId=" + wordId;
         return url;
     }
+
+    /**
+     * 获取更新 用户复习表的url
+     * @param reviewId
+     * @param reviewTimes
+     * @return
+     */
+    public String  updateReview(int reviewId, int reviewTimes){
+        return URL + "user/review/update?reviewId=" + reviewId + "&reviewTimes=" + reviewTimes;
+    }
+
+    /**
+     * 获取添加用户复习表的url
+     * @param userId
+     * @param wordId
+     * @return
+     */
+    public String addReview(int userId,int wordId){
+        return URL + "user/review/add?userId=" + userId +"&wordId=" + wordId;
+    }
+
+    /**
+     * 查找用户复习表信息
+     * @param userId
+     * @return
+     */
+    public String queryReview(int userId){
+        return URL + "user/review/query?userId=" + userId;
+    }
 }

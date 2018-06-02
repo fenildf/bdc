@@ -1,8 +1,10 @@
 package com.simulation.bdc.enitity;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.Date;
 
-public class Review {
+public class Review extends DataSupport{
 
     private int reviewId; //复习表Id
 

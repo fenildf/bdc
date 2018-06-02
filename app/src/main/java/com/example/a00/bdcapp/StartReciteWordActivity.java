@@ -112,7 +112,8 @@ public class StartReciteWordActivity extends AppCompatActivity {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            if(!wordService.addUserCompleteWord(user.getUserId(),word.getWordId())){
+                            boolean addReview = wordService.addReviewWord(user.getUserId(), word.getWordId());
+                            if(!wordService.addUserCompleteWord(user.getUserId(),word.getWordId()) && addReview){
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
