@@ -4,7 +4,7 @@ import org.litepal.crud.DataSupport;
 
 import java.util.Date;
 
-public class Review extends DataSupport{
+public class Review {
 
     private int reviewId; //复习表Id
 

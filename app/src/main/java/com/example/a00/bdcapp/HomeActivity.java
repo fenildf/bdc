@@ -68,6 +68,7 @@ public class HomeActivity extends AppCompatActivity {
         if(userPlans != null && !userPlans.isEmpty()){
             userPlan = userPlans.get(0);
             wordNumber.setText(userPlan.getWordNumber() + "");
+        }else{
         }
 
 
