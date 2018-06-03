@@ -14,8 +14,6 @@ public class Review {
 
     private int reviewTime;//复习次数
 
-    private Word word;//单词
-
     public int getReviewId() {
         return reviewId;
     }
@@ -48,13 +46,6 @@ public class Review {
         this.reviewTime = reviewTime;
     }
 
-    public Word getWord() {
-        return word;
-    }
-
-    public void setWord(Word word) {
-        this.word = word;
-    }
 
     @Override
     public String toString() {
@@ -63,7 +54,6 @@ public class Review {
                 ", userId=" + userId +
                 ", addTime=" + addTime +
                 ", reviewTime=" + reviewTime +
-                ", word=" + word +
                 '}';
     }
 }

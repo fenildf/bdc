@@ -8,6 +8,7 @@ import java.util.List;
  * 用户计划
  */
 public class UserPlan extends DataSupport{
+
     private long id;//主键
 
     private int planId; //用户计划Id

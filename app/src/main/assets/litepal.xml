@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <litepal>
     <dbname value="tb_bdc"></dbname>
-    <version value="6"></version>
+    <version value="8"></version>
     <list>
         <mapping class="com.simulation.bdc.enitity.User"></mapping>
         <mapping class="com.simulation.bdc.enitity.UserPlan"></mapping>
@@ -9,6 +9,9 @@
         <mapping class="com.simulation.bdc.enitity.Word"></mapping>
         <mapping class="com.simulation.bdc.enitity.Unit"></mapping>
         <mapping class="com.simulation.bdc.enitity.Review"></mapping>
+        <mapping class="com.simulation.bdc.enitity.Sentence"></mapping>
+        <mapping class="com.simulation.bdc.enitity.Grade"></mapping>
+        <mapping class="com.simulation.bdc.enitity.Mean"></mapping>
     </list>
 
 </litepal>

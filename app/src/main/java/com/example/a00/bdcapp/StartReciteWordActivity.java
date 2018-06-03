@@ -69,8 +69,8 @@ public class StartReciteWordActivity extends AppCompatActivity {
         List<UserPlan> userPlans = user.getPlans();
         if(!userPlans.isEmpty()){
             userPlan = userPlans.get(0);
+            book = userPlan.getBook();
         }
-        book = userPlan.getBook();
         //获取单词列表
         getWords();
 
