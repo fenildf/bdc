@@ -69,8 +69,8 @@ public class StartReciteWordActivity extends AppCompatActivity {
         List<UserPlan> userPlans = user.getPlans();
         if(!userPlans.isEmpty()){
             userPlan = userPlans.get(0);
+            book = userPlan.getBook();
         }
-        book = userPlan.getBook();
         //获取单词列表
         getWords();
 
@@ -196,22 +196,23 @@ public class StartReciteWordActivity extends AppCompatActivity {
             userPlan.setWordId(word.getWordId());
             word = wordList.get(index);
         }else{
+            index=0;
             wordList.clear();
-            for(Unit unit : book.getUnits()){
-                if(unit.getUnitId() > userPlan.getUnitId()){
-                    userPlan.setUnitId(unit.getUnitId());
-                    final int unitId = unit.getUnitId();
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Message msg = new Message();
-                            msg.obj = wordService.queryWordByUnitId(unitId,user.getUserId());
-                            handler.sendMessage(msg);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Message msg = new Message();
+                    for(Unit unit : book.getUnits()){
+                        if(unit.getUnitId() > userPlan.getUnitId()){
+                            userPlan.setUnitId(unit.getUnitId());
+                            msg.obj = wordService.queryWordByUnitId(unit.getUnitId(),user.getUserId());
+                            break;
                         }
-                    }).start();
-                    break;
+                    }
+                    handler.sendMessage(msg);
                 }
-            }
+            }).start();
+
         }
         //更新 用户计划的子线程
         new Thread(new Runnable() {
@@ -291,10 +292,6 @@ public class StartReciteWordActivity extends AppCompatActivity {
                 sameSameLookShow.append(word.getAlikeWord().get(i) + "  ");
             }
         }
-
-
-
-
     }
 
     //更新页面
@@ -304,22 +301,23 @@ public class StartReciteWordActivity extends AppCompatActivity {
             super.handleMessage(msg);
             if(msg.obj != null){
                 wordList = (List<Word>) msg.obj;
-                if(wordList.isEmpty() && userPlan.getUnitId() == book.getUnits().get(book.getUnits().size()-1).getUnitId()){
-                    Toast.makeText(StartReciteWordActivity.this,"完成计划",Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(StartReciteWordActivity.this,HomeActivity.class);
-                    startActivity(intent);
-                }else {
-                    //确定当前 所背诵单词在单词列表中的位置
-                    for (int i = 0; i < wordList.size(); i++) {
-                        if (userPlan.getWordId() == wordList.get(i).getWordId()) {
-                            index = i;
-                            word = wordList.get(i);
-                            break;
-                        }
+                //确定当前 所背诵单词在单词列表中的位置
+                for (int i = 0; i < wordList.size(); i++) {
+                    if (userPlan.getWordId() == wordList.get(i).getWordId()) {
+                        index = i;
+                        break;
                     }
-                    //将单词信息 填充到页面
+                }
+                if(index < wordList.size()) {
+                    //获取当前页面单词信息
+                    word = wordList.get(index);
                     showWord();
                 }
+                //将单词信息 填充到页面
+            }else{
+                Toast.makeText(StartReciteWordActivity.this,"完成计划",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(StartReciteWordActivity.this,HomeActivity.class);
+                startActivity(intent);
             }
         }
     };

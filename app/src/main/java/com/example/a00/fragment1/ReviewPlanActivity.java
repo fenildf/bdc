@@ -29,8 +29,7 @@ public class ReviewPlanActivity extends AppCompatActivity {
 
     private Word word; //当前页面所显示单词
     private Review review;//当前页面计划
-
-    private List<Review> reviews;
+    private List<Review> reviews; //用户复习表
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

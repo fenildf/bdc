@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public class User extends DataSupport {
+
     private static final String TAG = "User";
 
     public static final int LOGIN = 1;
@@ -38,6 +39,8 @@ public class User extends DataSupport {
 
     private int isLogin; //是否正在登陆
 
+    private List<UserPlan> plans;
+
     public long getId() {
         return id;
     }
@@ -58,11 +61,9 @@ public class User extends DataSupport {
         this.isLogin = isLogin;
     }
 
-    private List<UserPlan> plans;
-
     public List<UserPlan> getPlans() {
         if(plans == null  || plans.isEmpty()){
-            plans = DataSupport.where("userId = ?" ,getUserId()+"").find(UserPlan.class);
+            plans = DataSupport.where("user_id = ?" ,id + "").find(UserPlan.class);
             Log.d(TAG, "getPlans: " +  plans + "userId=?" + getUserId()+"");
         }
         return plans;
@@ -70,12 +71,8 @@ public class User extends DataSupport {
 
     public void setPlans(List<UserPlan> plans) {
         this.plans = plans;
-        if(plans != null){
-            DataSupport.saveAll(plans);
-            Log.d(TAG, "setPlans: " + plans );
-        }
+        DataSupport.saveAll(plans);
     }
-
     public int getUserId() {
         return userId;
     }

@@ -21,6 +21,8 @@ public class Book extends DataSupport{
 
     private int wordNumber;//教材单词总数
 
+
+
 //    public long getId() {
 //        return id;
 //    }

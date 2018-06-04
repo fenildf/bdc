@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             Message message = new Message();
             //登录结果
             boolean loginResult = userService.userLogin(phoneNo, null, password);
-            if (true) {
+            if (loginResult) {
                 message.what = LOGINSUCESS;
             } else {
                 message.what = LOGINFAIL;

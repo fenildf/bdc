@@ -69,8 +69,6 @@ public class HomeActivity extends AppCompatActivity {
             userPlan = userPlans.get(0);
             wordNumber.setText(userPlan.getWordNumber() + "");
         }
-
-
         //点击查询，跳转到单词释义显示界面
         search.setOnClickListener(new View.OnClickListener() {
             @Override
