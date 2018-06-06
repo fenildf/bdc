@@ -1,9 +1,11 @@
 package com.simulation.bdc.enitity;
 
+import org.litepal.crud.DataSupport;
+
 /**
  * 例句信息
  */
-public class Sentence {
+public class Sentence extends DataSupport{
 
     private String text; //例句英文
 

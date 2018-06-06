@@ -9,36 +9,38 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <LinearLayout
+            android:id="@+id/id_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/id_ll">
+            android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/word_show"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/word_show">
+                android:orientation="vertical">
 
 
                 <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/pro_icon"
-                    android:layout_marginTop="30dp"
+                    android:id="@+id/pronouce"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginStart="30dp"
-                    android:id="@+id/pronouce"/>
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/pro_icon" />
 
                 <TextView
+                    android:id="@+id/word_complement"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="w_rd"
-                    android:textSize="30sp"
                     android:layout_gravity="center"
-                    android:id="@+id/word_complement"/>
+                    android:text="w_rd"
+                    android:textSize="30sp" />
 
                 <EditText
                     android:id="@+id/word_write"
@@ -47,22 +49,25 @@
                     android:gravity="center"
                     android:hint="听发音拼写单词"
                     android:textSize="15sp" />
-            </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/word_show"
-                android:text="例句
-1.Ministers took the floor to denounce the decision to suspend constitutional rule.
-几位部长发言谴责暂停宪制的决定。
-2.Senior officers could be considering a coup to restore authoritarian rule.
-高官们可能会策划一场政变来复辟独裁统治。
-3.The North has been under Communist rule since 1954.
-北方自1954年起就一直处于共产党的统治之下。"
-                android:textSize="20sp"
-                android:inputType="textMultiLine"
-                android:id="@+id/word_remind"/>
+                <Button
+                    android:id="@+id/sure"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="确认" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/word_show"
+                    android:text="释义："
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/word_mean"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:textSize="20sp" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

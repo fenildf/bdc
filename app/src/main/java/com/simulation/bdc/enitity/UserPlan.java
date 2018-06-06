@@ -100,7 +100,9 @@ public class UserPlan extends DataSupport{
     public Book getBook() {
         if(book == null){
             book = DataSupport.where("bookId=?",bookId + "").findFirst(Book.class);
-            book.setUnits(DataSupport.where("bookId=?" ,book.getBookId() + "").find(Unit.class));
+            if(book != null) {
+                book.setUnits(DataSupport.where("bookId=?", book.getBookId() + "").find(Unit.class));
+            }
         }
         return book;
     }

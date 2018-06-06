@@ -4,7 +4,7 @@ import org.litepal.crud.DataSupport;
 
 import java.util.Date;
 
-public class Review {
+public class Review extends DataSupport{
 
     private int reviewId; //复习表Id
 
@@ -13,6 +13,8 @@ public class Review {
     private Date addTime;//添加时间
 
     private int reviewTime;//复习次数
+
+    private int wordId;//单词Id
 
     public int getReviewId() {
         return reviewId;
@@ -46,6 +48,13 @@ public class Review {
         this.reviewTime = reviewTime;
     }
 
+    public int getWordId() {
+        return wordId;
+    }
+
+    public void setWordId(int wordId) {
+        this.wordId = wordId;
+    }
 
     @Override
     public String toString() {
@@ -54,6 +63,7 @@ public class Review {
                 ", userId=" + userId +
                 ", addTime=" + addTime +
                 ", reviewTime=" + reviewTime +
+                ", wordId=" + wordId +
                 '}';
     }
 }

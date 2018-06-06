@@ -1,6 +1,8 @@
 package com.simulation.bdc.enitity;
 
-public class Grade {
+import org.litepal.crud.DataSupport;
+
+public class Grade extends DataSupport{
 
     private int gradeId;//年级Id
 

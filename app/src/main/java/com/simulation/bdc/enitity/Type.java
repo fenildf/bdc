@@ -1,9 +1,11 @@
 package com.simulation.bdc.enitity;
 
+import org.litepal.crud.DataSupport;
+
 /**
  * 单词分类
  */
-public class Type {
+public class Type extends DataSupport{
 
     private int typeId; //分类Id
 
