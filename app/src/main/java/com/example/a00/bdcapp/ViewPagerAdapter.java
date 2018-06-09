@@ -13,23 +13,25 @@ import java.util.List;
  */
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
-    private final List<Fragment> mFragmentList = new ArrayList<>();
+    private String[] mTitles = new String[]{"教材","已下载"};
 
-    public ViewPagerAdapter(FragmentManager manager) {
-        super(manager);
+    public ViewPagerAdapter(FragmentManager fm){
+        super(fm);
     }
-
     @Override
-    public Fragment getItem(int position) {
-        return mFragmentList.get(position);
+    public Fragment getItem(int position){
+        if (position==1){
+            return new FragmentDownloaded();
+        }
+        return new FragmentBook();
     }
-
     @Override
-    public int getCount() {
-        return mFragmentList.size();
+    public int getCount(){
+        return mTitles.length;
     }
-
-    public void addFragment(Fragment fragment) {
-        mFragmentList.add(fragment);
+    //ViewPager
+    @Override
+    public CharSequence getPageTitle(int position){
+        return mTitles[position];
     }
 }

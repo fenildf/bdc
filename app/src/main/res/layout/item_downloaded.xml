@@ -25,13 +25,12 @@
 出版社
 出版时间"
             android:textSize="25dp"/>
-        <ImageButton
+        <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/downloaded"
+            android:id="@+id/progress"
             android:layout_gravity="center_vertical"
-            android:layout_margin="5dp"
-            android:src="@drawable/down"/>
+            android:layout_margin="5dp"/>
     </LinearLayout>
 
 
