@@ -1,12 +1,17 @@
 package com.simulation.bdc.enitity;
 
+import android.graphics.Bitmap;
+import android.util.Log;
+
+import com.simulation.bdc.util.ParseJson;
+
 import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
 public class Book extends DataSupport{
 
-
+    private int id;//Id
     private int bookId; //教材Id
 
     private String bookName; //教材名称
@@ -21,7 +26,15 @@ public class Book extends DataSupport{
 
     private int wordNumber;//教材单词总数
 
+    private Bitmap coverPictureBitmap;//教材封面Bitmap;
 
+    public Bitmap getCoverPictureBitmap() {
+        return coverPictureBitmap;
+    }
+
+    public void setCoverPictureBitmap(Bitmap coverPictureBitmap) {
+        this.coverPictureBitmap = coverPictureBitmap;
+    }
 
 //    public long getId() {
 //        return id;
@@ -64,30 +77,45 @@ public class Book extends DataSupport{
     }
 
     public Grade getGrade() {
+
+        if(grade == null){
+            grade = DataSupport.where("book_id=?" , id + "").findFirst(Grade.class);
+        }
         return grade;
     }
 
     public void setGrade(Grade grade) {
+        DataSupport.deleteAll(Grade.class,"book_id=?",id + "");
+        grade.save();
         this.grade = grade;
     }
 
     public Publisher getPublisher() {
+        if(publisher == null){
+            publisher = DataSupport.where("book_id= ?",id + "").findFirst(Publisher.class);
+        }
         return publisher;
     }
 
     public void setPublisher(Publisher publisher) {
+        DataSupport.deleteAll(Publisher.class,"book_id=?",id + "");
+        publisher.save();
         this.publisher = publisher;
     }
 
     public List<Unit> getUnits() {
+        if(units == null || units.isEmpty()){
+            units = DataSupport.where("bookId=?",bookId + "").find(Unit.class);
+            Log.d("getUnits: ","bookId=?" + bookId + "" + units);
+        }
         return units;
     }
 
     public void setUnits(List<Unit> units) {
         if(!units.isEmpty()){
-            for (int i = 0;i < units.size();i++){
-                units.get(i).save();
-            }
+//            DataSupport.deleteAll(Unit.class,"bookId=?",bookId + "");
+            DataSupport.saveAll(units);
+            Log.d("setUnits: ",units.toString());
         }
         this.units = units;
     }

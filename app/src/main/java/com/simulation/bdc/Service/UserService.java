@@ -38,10 +38,8 @@ public class UserService {
 
         String responseData = urlConnect.connecteUrl(url);
 
-        DataSupport.deleteAll(User.class);
+        DataSupport.deleteAll(User.class,"phoneNo=?",phoneNo);
         DataSupport.deleteAll(UserPlan.class);
-        DataSupport.deleteAll(Book.class);
-        DataSupport.deleteAll(Unit.class);
 
         User user = ParseJson.parseUserJson(responseData);
         if (user != null) {
@@ -110,8 +108,19 @@ public class UserService {
      * @param userId
      * @return
      */
-    public List<UserPlan> queryUserPlan(int userId){
-        return DataSupport.where("userId=?", userId+"").find(UserPlan.class);
+    public List<UserPlan> queryUserPlanFromLocal(int userId){
+        return DataSupport.where("userId=? and isDoing=?", userId+"",1+"").find(UserPlan.class);
+    }
+
+    /**
+     * 在服务器上查询用户计划
+     * @param userId
+     * @return
+     */
+    public List<UserPlan> queryUserPlanFromServer(int userId){
+        String url = requestURL.queryUserPlan(userId);
+        String responseData = urlConnect.connecteUrl(url);
+        return ParseJson.parseUserPlan(responseData);
     }
 
     /**
@@ -124,6 +133,24 @@ public class UserService {
         String url = requestURL.updateUserPlan(userPlan);
         Log.d(TAG, "updateUserPlan: " + url);
         String responseData = urlConnect.connecteUrl(url);
+        if(ParseJson.parseResult(responseData) != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * 添加用户计划
+     * @param userId
+     * @param bookId
+     * @param wordNumber
+     * @return
+     */
+    public boolean addUserPlan(int userId,int bookId,int wordNumber){
+        String url = requestURL.addUserPlan(userId,bookId,wordNumber);
+        String responseData = urlConnect.connecteUrl(url);
+        Log.d(TAG, "addUserPlan: " + responseData);
         if(ParseJson.parseResult(responseData) != 0){
             return true;
         }else{

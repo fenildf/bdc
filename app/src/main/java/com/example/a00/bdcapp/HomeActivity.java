@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,10 +18,13 @@ import android.widget.Toast;
 
 import com.example.a00.fragment1.MyCoursesActivity;
 import com.example.a00.fragment1.ReviewPlanActivity;
+import com.example.a00.fragment1.SearchWordsActivity;
 import com.example.a00.fragment1.StoryReadingActivity;
 import com.example.a00.fragment1.WordInfoActivity;
+import com.simulation.bdc.Service.BookService;
 import com.simulation.bdc.Service.UserService;
 import com.simulation.bdc.Service.WordService;
+import com.simulation.bdc.enitity.Book;
 import com.simulation.bdc.enitity.Review;
 import com.simulation.bdc.enitity.User;
 import com.simulation.bdc.enitity.UserPlan;
@@ -35,8 +39,9 @@ import java.util.List;
  * 首页，通过首页的泡泡，点击添加事件，分别跳转到各个对应功能的子页面
  */
 public class HomeActivity extends AppCompatActivity {
-    private EditText print;
-    private Button search;
+    private static final String TAG = "HomeActivity";
+    private EditText searchTextEdit;
+    private Button searchButton;
     private Button myCourse;
     private Button review;
     private Button mine;
@@ -50,16 +55,18 @@ public class HomeActivity extends AppCompatActivity {
 
     private User user = userService.queryLoginUser();
     private WordService wordService = new WordService();
+    private BookService bookService = new BookService();
 
     private UserPlan userPlan;
+    List<UserPlan> userPlans;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        print = findViewById(R.id.print);
-        search = findViewById(R.id.search);
+        searchTextEdit = findViewById(R.id.search_text_edit);
+        searchButton = findViewById(R.id.search);
         myCourse = findViewById(R.id.mycourse);
         review = findViewById(R.id.review);
         mine = findViewById(R.id.mine);
@@ -68,17 +75,19 @@ public class HomeActivity extends AppCompatActivity {
         wordNumber = findViewById(R.id.word_number);
         startReciteWord = findViewById(R.id.start_recite_word);
 
-        List<UserPlan> userPlans = userService.queryUserPlan(user.getUserId());
+        userPlans = userService.queryUserPlanFromLocal(user.getUserId());
 
         if(userPlans != null && !userPlans.isEmpty()){
             userPlan = userPlans.get(0);
             wordNumber.setText(userPlan.getWordNumber() + "");
         }
+        Log.d(TAG, "onCreate: " + userPlan);
+        Log.d(TAG, "onCreate: " + userPlan.getBook().getUnits());
         //点击查询，跳转到单词释义显示界面
-        search.setOnClickListener(new View.OnClickListener() {
+        searchTextEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, WordInfoActivity.class);
+                Intent intent = new Intent(HomeActivity.this, SearchWordsActivity.class);
                 startActivity(intent);
             }
         });
@@ -86,8 +95,19 @@ public class HomeActivity extends AppCompatActivity {
         myCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, MyCoursesActivity.class);
-                startActivity(intent);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<Book> books = bookService.queryAllBooks();
+                        Message msg = new Message();
+                        if(books != null && !books.isEmpty()){
+                            msg.what = MY_COURSES;
+                        }else{
+                            msg.what = MY_COURSES_IS_NULL;
+                        }
+                        handler.sendMessage(msg);
+                    }
+                }).start();
             }
         });
 
@@ -126,22 +146,31 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
         //点击开始背单词，跳转到背诵单词的界面
         startReciteWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(HomeActivity.this,userService.queryUserPlan(user.getUserId()).toString(),Toast.LENGTH_LONG).show();
-                if(userService.queryUserPlan(user.getUserId()) != null) {
-                    Intent intent = new Intent(HomeActivity.this, StartReciteWordActivity.class);
-                    startActivity(intent);
+                if(userPlan != null  ) {
+                    if(userPlan.getBook().getWordNumber() != userPlan.getHasDone()) {
+                        Intent intent = new Intent(HomeActivity.this, StartReciteWordActivity.class);
+                        startActivity(intent);
+                    }else{
+                        toast("当前计划已完成，请选择其他计划");
+                    }
                 }else{
-                    Toast.makeText(HomeActivity.this,"请先添加计划" + Session.getAttribute("user"),Toast.LENGTH_SHORT).show();
+                    toast("请先添加计划");
+                    Intent intent = new Intent(HomeActivity.this,MyCoursesActivity.class);
+                    startActivity(intent);
                 }
             }
         });
     }
     final private int FAIL = 0;
     final private int REVIEW = 1;
+    final private int MY_COURSES = 2;
+    final private int MY_COURSES_IS_NULL = 3;
 
     Handler handler = new Handler(){
         @Override
@@ -151,8 +180,25 @@ public class HomeActivity extends AppCompatActivity {
                 case REVIEW:{
                     Intent intent = new Intent(HomeActivity.this,ReviewPlanActivity.class);
                     startActivity(intent);
+                    break;
+                }
+                case MY_COURSES:{
+                    Intent intent = new Intent(HomeActivity.this, MyCoursesActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case MY_COURSES_IS_NULL:{
+                    toast("没有教材信息");
                 }
             }
         }
     };
+
+    /**
+     * 在当前页面上广播
+     * @param text
+     */
+    public void toast(String text){
+        Toast.makeText(HomeActivity.this,text,Toast.LENGTH_SHORT).show();
+    }
 }

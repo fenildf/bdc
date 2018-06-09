@@ -1,9 +1,11 @@
 package com.simulation.bdc.enitity;
 
+import org.litepal.crud.DataSupport;
+
 /**
  * 出版商信息
  */
-public class Publisher {
+public class Publisher extends DataSupport{
 
     public int publisherId; //出版商Id
 

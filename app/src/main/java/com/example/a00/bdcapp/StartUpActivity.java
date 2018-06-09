@@ -118,19 +118,19 @@ public class StartUpActivity extends AppCompatActivity {
      */
     public Bitmap getPictureBitMap(String url) {
         URL pictureUrl = null;
-        Bitmap bitmap = null;
-        try {
-            pictureUrl = new URL(url);
-        } catch (MalformedURLException e) {
-            Log.e(TAG, "returnBitMap: " + e);
-        }
-        try {
-            HttpURLConnection conn = (HttpURLConnection) pictureUrl
-                    .openConnection();
-            conn.setDoInput(true);
-            conn.connect();
-            InputStream is = conn.getInputStream();
-            bitmap = BitmapFactory.decodeStream(is);
+            Bitmap bitmap = null;
+            try {
+                pictureUrl = new URL(url);
+            } catch (MalformedURLException e) {
+                Log.e(TAG, "returnBitMap: " + e);
+            }
+            try {
+                HttpURLConnection conn = (HttpURLConnection) pictureUrl
+                        .openConnection();
+                conn.setDoInput(true);
+                conn.connect();
+                InputStream is = conn.getInputStream();
+                bitmap = BitmapFactory.decodeStream(is);
             is.close();
         } catch (IOException e) {
             Log.e(TAG, "returnBitMap: " + e);

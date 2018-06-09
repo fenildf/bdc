@@ -48,6 +48,5 @@ public class FragmentDownloaded extends Fragment {
                     "出版时间" + i);
             dataList.add(map);
         }
-
     }
 }

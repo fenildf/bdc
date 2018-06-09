@@ -72,7 +72,6 @@ public class ListViewAdapter extends BaseAdapter {
         util.imageView.setImageResource((Integer) map.get("book_image"));
         util.textView.setText((CharSequence) map.get("book_info"));
         util.progressBar.setProgress(0);
-
         return view;
     }
 }

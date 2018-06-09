@@ -58,6 +58,7 @@ public class StartReciteWordActivity extends AppCompatActivity {
     private int index = 0; //当前背诵到的单词在列表中的位置
     private Book book;//计划中的教材信息
     private Word word;//当前页面显示的单词
+    List<Unit> units;//教材单元
 
     private String ip = "http://123.206.29.55/";
 
@@ -71,6 +72,8 @@ public class StartReciteWordActivity extends AppCompatActivity {
             userPlan = userPlans.get(0);
             book = userPlan.getBook();
         }
+        Log.d(TAG, "onCreate: " + book.getUnits());
+        Log.d(TAG, "onCreate: " + userPlans);
         //获取单词列表
         getWords();
 
@@ -202,7 +205,7 @@ public class StartReciteWordActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     Message msg = new Message();
-                    for(Unit unit : book.getUnits()){
+                    for(Unit unit : units){
                         if(unit.getUnitId() > userPlan.getUnitId()){
                             userPlan.setUnitId(unit.getUnitId());
                             msg.obj = wordService.queryWordByUnitId(unit.getUnitId(),user.getUserId());
@@ -239,13 +242,16 @@ public class StartReciteWordActivity extends AppCompatActivity {
             @Override
             public void run() {
                 List<Word> wordList = new ArrayList<Word>();
-                for(Unit unit: book.getUnits()){
+                units = book.getUnits();
+                for(Unit unit: units){
                     if(unit.getUnitId() == userPlan.getUnitId()) {
                         wordList.addAll(wordService.queryWordByUnitId(unit.getUnitId(),user.getUserId()));
                     }
                 }
                 Log.d(TAG, "run: " + DataSupport.where("bookId=?" ,userPlan.getBookId()+"").find(Book.class));
-                Log.d(TAG, "run: " + userPlan.getBookId());
+                Log.d(TAG, "run: " + userPlan);
+                Log.d(TAG, "run: " + wordList);
+                Log.d(TAG, "run: " + book.getUnits());
                 Message msg = new Message();
                 msg.obj = wordList;
                 handler.sendMessage(msg);
@@ -321,4 +327,5 @@ public class StartReciteWordActivity extends AppCompatActivity {
             }
         }
     };
+
 }

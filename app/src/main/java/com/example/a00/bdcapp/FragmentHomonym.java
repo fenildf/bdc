@@ -28,9 +28,9 @@ public class FragmentHomonym extends Fragment {
             map.put("word_homonym","组合" +i);
             listItem.add(map);
         }
-        SimpleAdapter msimpleAdapter = new SimpleAdapter(getActivity(),listItem,R.layout.item_homonym,new String[]{"word_homonym"},new int[]{R.id.word_homonym});
-
-        lvHomonym.setAdapter(msimpleAdapter);
+//        SimpleAdapter msimpleAdapter = new SimpleAdapter(getActivity(),listItem,R.layout.item_homonym,new String[]{"word_homonym"},new int[]{R.id.word_homonym});
+//
+//        lvHomonym.setAdapter(msimpleAdapter);
         return view;
 
     }

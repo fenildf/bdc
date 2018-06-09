@@ -96,7 +96,7 @@ public class RequestURL {
     public String queryWordByWordName(String wordName){
         String url = URL + "word/query_by_word_info";
         if(url != null){
-            url += "?wordName" + wordName;
+            url += "?wordName=" + wordName;
         }else{
             url = null;
         }
@@ -195,5 +195,25 @@ public class RequestURL {
      */
     public String queryReview(int userId){
         return URL + "user/review/query?userId=" + userId;
+    }
+
+    /**
+     * 获取添加用户计划的网址
+     * @param userId
+     * @param bookId
+     * @param wordNumber
+     * @return
+     */
+    public String addUserPlan(int userId,int bookId,int wordNumber){
+        return URL + "user/plan/add?userId=" + userId + "&bookId=" + bookId + "&wordNumber=" + wordNumber;
+    }
+
+    /**
+     * 获取查询用户计划的网址
+     * @param userId
+     * @return
+     */
+    public String queryUserPlan(int userId){
+        return URL + "user/plan/query?userId=" + userId;
     }
 }

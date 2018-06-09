@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -42,29 +44,30 @@ public class SearchWordsActivity extends AppCompatActivity {
         searchView.setIconified(false);
         searchView.setSubmitButtonEnabled(true);
         wordListView = (ListView) findViewById(R.id.word_list_view);
-
+        wordListView.setOnItemClickListener(itemClickListener);
         searchView.setOnQueryTextListener(searchQueryTextList);
 
     }
     public final int  SUBMIT = 1;
+    /**
+     * 查询单词信息，并显示在线提示，
+     * 点击确认后跳转到单词详细信息页面
+     *
+     */
     private SearchView.OnQueryTextListener searchQueryTextList =  new SearchView.OnQueryTextListener() {
         List<Word> wordList = null;
         @Override
         public boolean onQueryTextSubmit(final String query) {
-
             if("".equals(query) || query== null){
                 return false;
             } else {
                 if(lastThread != null){
                     lastThread.interrupt();
                 }
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Word word = wordService.queryWordByWordName(query);
-                    }
-                }).start();
-
+                Message msg = new Message();
+                msg.what = TO_WORD_INFO_ACTIVITY;
+                msg.obj = query;
+                handler.sendMessage(msg);
                 return true;
             }
         }
@@ -83,6 +86,7 @@ public class SearchWordsActivity extends AppCompatActivity {
                     public void run() {
                         List<Word> wordList = wordService.queryWordByName(currentSearchTip );
                         msg.obj = wordList;
+                        msg.what = SHOW_HINT;
                         handler.sendMessage(msg);
                     }
                 });
@@ -102,17 +106,43 @@ public class SearchWordsActivity extends AppCompatActivity {
         return scheduledExecutor.schedule(command, delayTimeMills, TimeUnit.MILLISECONDS);
     }
 
+    private final int SHOW_HINT = 1;
+    private final int TO_WORD_INFO_ACTIVITY = 2;
     /**
      * 显示在线提示
      */
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            List<Word> wordList = (List<Word>) msg.obj;
-            if(wordList != null) {
-                WordAdapter wordAdapter = new WordAdapter(SearchWordsActivity.this, wordList);
-                wordListView.setAdapter(wordAdapter);
+
+            switch (msg.what){
+                case SHOW_HINT:{
+                    List<Word> wordList = (List<Word>) msg.obj;
+                    if(wordList != null) {
+                        WordAdapter wordAdapter = new WordAdapter(SearchWordsActivity.this, wordList);
+                        wordListView.setAdapter(wordAdapter);
+                    }
+                    break;
+                }
+                case TO_WORD_INFO_ACTIVITY:{
+                    WordInfoActivity.actionStart(SearchWordsActivity.this, (String) msg.obj);
+                }
             }
+        }
+    };
+    /**
+     * 添加点击事件
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
+    ListView.OnItemClickListener itemClickListener = new ListView.OnItemClickListener(){
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            WordAdapter.ListItemView listItemView = (WordAdapter.ListItemView)view.getTag();
+            Word word = listItemView.word;
+            WordInfoActivity.actionStart(SearchWordsActivity.this,word.getWordName());
         }
     };
 }

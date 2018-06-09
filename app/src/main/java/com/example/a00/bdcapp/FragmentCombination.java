@@ -29,9 +29,9 @@ public class FragmentCombination extends Fragment {
             map.put("word_combination","组合" +i);
             listItem.add(map);
         }
-        SimpleAdapter msimpleAdapter = new SimpleAdapter(getActivity(),listItem,R.layout.item_combination,new String[]{"word_homonym"},new int[]{R.id.lv_combination});
-
-        lvCombination.setAdapter(msimpleAdapter);
+//        SimpleAdapter msimpleAdapter = new SimpleAdapter(getActivity(),listItem,R.layout.item_combination,new String[]{"word_homonym"},new int[]{R.id.lv_combination});
+//
+//        lvCombination.setAdapter(msimpleAdapter);
         return view;
 
     }

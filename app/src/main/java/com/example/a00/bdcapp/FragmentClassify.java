@@ -43,9 +43,9 @@ public class FragmentClassify extends Fragment {
             map.put("word_classify","组合" +i);
             listItem.add(map);
         }
-        SimpleAdapter msimpleAdapter = new SimpleAdapter(getActivity(),listItem,R.layout.item_classify,new String[]{"word_classify"},new int[]{R.id.word_classify});
+//        SimpleAdapter msimpleAdapter = new SimpleAdapter(getActivity(),listItem,R.layout.item_classify,new String[]{"word_classify"},new int[]{R.id.word_classify});
 
-        lvClassify.setAdapter(msimpleAdapter);
+//        lvClassify.setAdapter(msimpleAdapter);
         return view;
 
     }
