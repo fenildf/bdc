@@ -1,5 +1,8 @@
 package com.simulation.bdc.enitity;
 
+import android.support.v7.widget.DialogTitle;
+import android.util.Log;
+
 import org.litepal.crud.DataSupport;
 
 import java.util.List;
@@ -108,6 +111,8 @@ public class UserPlan extends DataSupport{
     }
 
     public void setBook(Book book) {
+        Log.d("UserPlan", "setBook: " + book);
+        DataSupport.deleteAll(Book.class,"bookId=?" , book.getBookId() + "");
         this.book = book;
         if(book != null) {
             setBookId(book.getBookId());

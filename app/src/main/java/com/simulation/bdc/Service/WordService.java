@@ -42,6 +42,8 @@ public class WordService {
     public Word queryWordByWordName(String word){
         String url = requestUrl.queryWordByWordName(word);
         String wordJson = connecteURL.connecteUrl(url);
+        Log.d(TAG, "queryWordByWordName: " + url);
+        Log.d(TAG, "queryWordByWordName: " + wordJson);
         List<Word> wordList = ParseJson.parseWords(wordJson);
         if(wordList != null && !wordList.isEmpty()){
             return wordList.get(0);
@@ -50,6 +52,14 @@ public class WordService {
         }
     }
 
+//    /**
+//     * 从通过单词Id本地查找单词信息
+//     * @param wordId
+//     * @return
+//     */
+//    public Word queryWordByWordIdFromLocal(int wordId){
+//        return DataSupport.where("wordId=?",wordId +"").findFirst(Word.class);
+//    }
     /**
      * 通过单元Id查找单词
      * @param unitId

@@ -50,6 +50,7 @@ public class Unit extends DataSupport{
     public String toString() {
         return "Unit{" +
                 "unitId=" + unitId +
+                ", bookId=" + bookId +
                 ", unitName='" + unitName + '\'' +
                 ", words=" + words +
                 '}';

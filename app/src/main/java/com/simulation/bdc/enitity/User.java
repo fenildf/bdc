@@ -70,9 +70,11 @@ public class User extends DataSupport {
     }
 
     public void setPlans(List<UserPlan> plans) {
+        DataSupport.deleteAll(UserPlan.class,"userId=?" , userId + "");
         this.plans = plans;
         DataSupport.saveAll(plans);
     }
+
     public int getUserId() {
         return userId;
     }

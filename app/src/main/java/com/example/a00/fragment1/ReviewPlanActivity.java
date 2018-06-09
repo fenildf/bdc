@@ -29,6 +29,7 @@ import com.simulation.bdc.enitity.Review;
 import com.simulation.bdc.enitity.Sentence;
 import com.simulation.bdc.enitity.User;
 import com.simulation.bdc.enitity.Word;
+import com.simulation.bdc.util.Player;
 
 import org.litepal.crud.DataSupport;
 
@@ -79,9 +80,9 @@ public class ReviewPlanActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(word.getProUsa().length() > 0) {
-                    player(ip + word.getProUsa());
+                    Player.play(ip + word.getProUsa());
                 }else{
-                    player(ip + word.getProUk());
+                    Player.play(ip + word.getProUk());
                 }
             }
         });
@@ -187,43 +188,14 @@ public class ReviewPlanActivity extends AppCompatActivity {
         }
         //播放音频
         if(word.getProUsa().length() > 0) {
-            player(ip + word.getProUsa());
+            Player.play(ip + word.getProUsa());
         }else{
-            player(ip + word.getProUk());
+            Player.play(ip + word.getProUk());
         }
     }
 
     final private  MediaPlayer mediaPlayer = new MediaPlayer();
     private String ip = "http://123.206.29.55/";
-    /**
-     * 播放读音
-     * @param url
-     */
-    public void player(final String url){
-        if(url == null ) return;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                mediaPlayer.reset();
-                try {
-                    mediaPlayer.setDataSource(url);
-                    mediaPlayer.prepareAsync(); // prepare自动播放 ;
-                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mp) {
-                            // 装载完毕回调
-                            mediaPlayer.start();
-                        }
-                    });
-                }catch (IOException e){
-                    Log.d(TAG, "player: " + e);
-                }
-            }
-        }).start();
-
-    }
-
     private final int SEND_WORD = 1;
     private final int UPDATA_REVIEW_SUCESS = 2;
     private final int UPDATA_REVIEW_FAIL = 3;

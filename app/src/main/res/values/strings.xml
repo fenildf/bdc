@@ -10,4 +10,6 @@
     <string name="title_activity_story_reading">StoryReadingActivity</string>
     <string name="title_activity_sentence_every_day">SentenceEveryDayActivity</string>
     <string name="title_activity_review_plan">ReviewPlanActivity</string>
+    <string name="add_to_plan">添加到计划</string>
+    <string name="added_to_plan">已添加到计划</string>
 </resources>

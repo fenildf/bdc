@@ -251,7 +251,24 @@ public class ParseJson {
         }
         return strings;
     }
-
+    /**
+     * 解析教材数组的信息
+     */
+    public static List<Book> parseBooks(String jsonString){
+        List<Book> books = null;
+        try {
+            JSONArray jsonArray = new JSONArray(jsonString);
+            if(jsonArray != null && jsonArray.length() > 0){
+                books = new ArrayList<Book>();
+                for(int i = 0;i < jsonArray.length();i++){
+                    books.add(parseBook(jsonArray.getJSONObject(i)));
+                }
+            }
+        }catch (JSONException e){
+            Log.d(TAG, "parseBooks: " + e);
+        }
+        return books;
+    }
     /**
      * 解析教材信息
      * @param bookJson
@@ -267,6 +284,7 @@ public class ParseJson {
                 book.setCoverPicture(bookJson.getString("coverPicture"));
                 book.setGrade(parseGrade(bookJson.getJSONObject("grade")));
                 book.setPublisher(parsePublisher(bookJson.getJSONObject("publisher")));
+                book.setWordNumber(bookJson.getInt("wordNumber"));
                 book.setUnits(parseUnits(bookJson.getString("units")));
             }
 

@@ -51,8 +51,9 @@
         <activity android:name="com.example.a00.fragment1.SearchWordsActivity" />
         <activity android:name="com.example.a00.fragment3.GetPictureActivity" />
         <activity android:name="com.example.a00.fragment1.WordInfoActivity" />
-        <activity android:name=".StartReciteWordActivity"></activity>
-        <activity android:name=".MineActivity"></activity>
+        <activity android:name=".StartReciteWordActivity" />
+        <activity android:name=".MineActivity" />
+        <activity android:name=".BookInfoActivity"></activity>
     </application>
 
 </manifest>

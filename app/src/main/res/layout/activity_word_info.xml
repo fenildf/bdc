@@ -14,11 +14,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="please"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:id="@+id/word"
-            android:textSize="20dp"
+            android:textSize="25dp"
             android:layout_below="@+id/search"/>
         <LinearLayout
             android:id="@+id/pro_layout"
@@ -37,7 +36,7 @@
                 android:id="@+id/ph_uk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" 英式 "/>
+                android:text="英式"/>
             <ImageButton
                 android:id="@+id/pro_usa_icon"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
@@ -48,7 +47,7 @@
                 android:id="@+id/ph_usa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" 美式 "/>
+                android:text="美式"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/mean"
@@ -68,7 +67,6 @@
                 android:id="@+id/meaningshow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="int.请;vt. vi.使高兴;使满意;讨人喜欢； 讨好;"
                 android:layout_below="@+id/meaning"
                 android:layout_marginTop="5dp"
                 android:textSize="18sp"
@@ -76,14 +74,11 @@
 
         </LinearLayout>
     </LinearLayout>
-    <view
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
     <LinearLayout
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_margin="@dimen/activity_horizontal_margin"
         android:id="@+id/sentence"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -99,7 +94,6 @@
             android:layout_margin="@dimen/activity_vertical_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="I'd like to check the balance in my account please.\n请查一下我的账户余额。"
             android:inputType="textMultiLine"
             android:id="@+id/sentence_text_view"
             android:layout_below="@+id/eg"
