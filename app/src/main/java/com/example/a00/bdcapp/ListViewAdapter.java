@@ -1,12 +1,14 @@
 package com.example.a00.bdcapp;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -17,60 +19,67 @@ import java.util.Map;
  */
 
 public class ListViewAdapter extends BaseAdapter {
-
-    private List<Map<String, Object>> data;
-    private LayoutInflater layoutInflater;
+    private List<Map<String, Object>> datalist;
     private Context context;
-    public ListViewAdapter(Context context,List<Map<String, Object>> data){
-        this.context=context;
-        this.data=data;
-        this.layoutInflater=LayoutInflater.from(context);
+    private int resource;
+
+    public ListViewAdapter(Context context, List<Map<String, Object>> datalist, int resource) {
+
+        this.context = context;
+        this.datalist = datalist;
+        this.resource = resource;
+
     }
-    /**
-     * 组件集合，对应item_downloaded.xml中的控件
-     */
-    public final class Zujian{
-        public ImageView bookImage;
-        public TextView bookInfo;
-        public ImageButton down;
-    }
+
     @Override
     public int getCount() {
-        return data.size();
+        // TODO Auto-generated method stub
+        return datalist.size();
     }
-    /**
-     * 获得某一位置的数据
-     */
+
     @Override
     public Object getItem(int position) {
-        return data.get(position);
+        // TODO Auto-generated method stub
+        return datalist.get(position);
     }
-    /**
-     * 获得唯一标识
-     */
+
     @Override
     public long getItemId(int position) {
+        // TODO Auto-generated method stub
         return position;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        Zujian zujian=null;
-        if(convertView==null){
-            zujian=new Zujian();
-            //获得组件，实例化组件
-            convertView=layoutInflater.inflate(R.layout.item_downloaded, null);
-            zujian.bookImage=convertView.findViewById(R.id.book_image);
-            zujian.bookInfo=convertView.findViewById(R.id.book_info);
-            zujian.down=convertView.findViewById(R.id.downloaded);
-            convertView.setTag(zujian);
-        }else{
-            zujian=(Zujian)convertView.getTag();
+    public View getView(int position, View view, ViewGroup arg2) {
+
+        Util util = null;
+        if (view == null) {
+            util = new Util();
+            // 给xml布局文件创建java对象
+            LayoutInflater inflater = LayoutInflater.from(context);
+            view = inflater.inflate(resource, null);
+            util.imageView = (ImageView) view.findViewById(R.id.book_image);
+            util.textView = (TextView) view.findViewById(R.id.book_info);
+            util.progressBar = (ProgressBar) view.findViewById(R.id.progress);
+            view.setTag(util);
+
+        } else {
+            util = (Util) view.getTag();
         }
-        //绑定数据
-        zujian.bookImage.setBackgroundResource((Integer)data.get(position).get("book_image"));
-        zujian.bookInfo.setText((String)data.get(position).get("book_info"));
-        zujian.down.setImageResource((Integer) data.get(position).get("downloaded"));
-        return convertView;
+
+        Map<String, Object> map = datalist.get(position);
+        util.imageView.setImageResource((Integer) map.get("book_image"));
+        util.textView.setText((CharSequence) map.get("book_info"));
+        util.progressBar.setProgress(0);
+
+        return view;
     }
+}
+/**
+ * 内部类
+ */
+class Util{
+    ImageView imageView;
+    TextView textView;
+    ProgressBar progressBar;
 }

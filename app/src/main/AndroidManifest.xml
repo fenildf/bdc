@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -38,10 +37,6 @@
             android:label="@string/title_activity_review_plan"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.example.a00.fragment1.MyCoursesActivity" />
-        <!--
-        <activity android:name="com.example.a00.fragment2.CYLEActivity" />
-        <activity android:name="com.example.a00.fragment2.NCEActivity" />
-        -->
         <activity android:name="com.example.a00.fragment3.WordlistActivity" />
         <activity android:name="com.example.a00.fragment3.ReviseInformationActivity" />
         <activity android:name="com.example.a00.fragment3.FeedbackActivity" />
@@ -51,7 +46,7 @@
         <activity android:name="com.example.a00.fragment1.SearchWordsActivity" />
         <activity android:name="com.example.a00.fragment3.GetPictureActivity" />
         <activity android:name="com.example.a00.fragment1.WordInfoActivity" />
-        <activity android:name=".StartReciteWordActivity"></activity>
+        <activity android:name=".StartReciteWordActivity" />
         <activity android:name=".MineActivity"></activity>
     </application>
 

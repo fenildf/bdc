@@ -1,6 +1,7 @@
 package com.example.a00.fragment1;
 
 import android.graphics.Color;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -18,95 +19,40 @@ import com.example.a00.bdcapp.ViewPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyCoursesActivity extends AppCompatActivity implements View.OnClickListener {
-    private ViewPager viewPager;
-    private TextView book,downloaded;
-    private MenuItem menuItem;
-    private List<Fragment> list;
-    private ViewPagerAdapter adapter;
+public class MyCoursesActivity extends AppCompatActivity {
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
+    private ViewPagerAdapter myFragmentPagerAdapter;
+
+    private TabLayout.Tab one;
+    private TabLayout.Tab two;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_courses);
-
-
-        InitView();
-
-    // 设置菜单栏的点击事件
-        book.setOnClickListener(this);
-        downloaded.setOnClickListener(this);
-        viewPager.setOnPageChangeListener(new MyPagerChangeListener());
-
-    //把Fragment添加到List集合里面
-        list = new ArrayList<>();
-        list.add(new FragmentDownloaded());
-        list.add(new FragmentBook());
-        adapter = new ViewPagerAdapter(getSupportFragmentManager(), list);
-        viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(0);  //初始化显示第一个页面
-        book.setBackgroundColor(Color.RED);//被选中就为红色
-
-        book = findViewById(R.id.book);
-        downloaded = findViewById(R.id.downloaded);
-        viewPager = findViewById(R.id.viewpager);
+        //初始化视图
+        initViews();
 
     }
-    /**
-     * 初始化控件
-     */
-    private void InitView() {
-       book = findViewById(R.id.book);
-       downloaded= findViewById(R.id.downloaded);
-       viewPager =  findViewById(R.id.viewpager);
-    }
+    private void initViews() {
 
-    /**
-     * 点击事件
-     */
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.book:
-                viewPager.setCurrentItem(0);
-                book.setBackgroundColor(Color.RED);
-                downloaded.setBackgroundColor(Color.WHITE);
-                break;
-            case R.id.downloaded:
-             viewPager.setCurrentItem(1);
-                book.setBackgroundColor(Color.WHITE);
-                downloaded.setBackgroundColor(Color.RED);
-                break;
-        }
-    }
+        //使用适配器将ViewPager与Fragment绑定在一起
+        mViewPager= (ViewPager) findViewById(R.id.viewpager);
+        myFragmentPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(myFragmentPagerAdapter);
 
-    /**
-     * 设置一个ViewPager的侦听事件，当左右滑动ViewPager时菜单栏被选中状态跟着改变
-     */
-    public class MyPagerChangeListener implements ViewPager.OnPageChangeListener {
+        //将TabLayout与ViewPager绑定在一起
+        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        mTabLayout.setupWithViewPager(mViewPager);
 
-        @Override
-        public void onPageScrollStateChanged(int arg0) {
-        }
+        //指定Tab的位置
+        one = mTabLayout.getTabAt(0);
+        two = mTabLayout.getTabAt(1);
 
-        @Override
-        public void onPageScrolled(int arg0, float arg1, int arg2) {
-        }
+        //设置Tab的图标，假如不需要则把下面的代码删去
+        one.setIcon(R.mipmap.ic_launcher);
+        two.setIcon(R.mipmap.ic_launcher);
 
-        @Override
-        public void onPageSelected(int arg0) {
-            switch (arg0) {
-                case 0:
-                    viewPager.setCurrentItem(0);
-                    book.setBackgroundColor(Color.RED);
-                    downloaded.setBackgroundColor(Color.WHITE);
-                    break;
-                case 1:
-                    viewPager.setCurrentItem(1);
-                    book.setBackgroundColor(Color.WHITE);
-                    downloaded.setBackgroundColor(Color.RED);
-                    break;
-            }
-        }
     }
 }
