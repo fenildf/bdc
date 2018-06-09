@@ -16,6 +16,7 @@ import java.util.Map;
 
 /**
  * Created by 0.0 on 2018/6/1.
+ * 教材库单元列表显示的listview的适配器
  */
 
 public class ListViewAdapter extends BaseAdapter {

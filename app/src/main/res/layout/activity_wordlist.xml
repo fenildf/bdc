@@ -6,87 +6,17 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     tools:context="com.example.a00.fragment3.WordlistActivity">
-
-    <LinearLayout
-        android:id="@+id/switch_tab"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/word_tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:baselineAligned="false"
-        >
-
-        <LinearLayout
-            android:id="@+id/tab_combination"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dip" >
-
-            <TextView
-                android:id="@+id/word_combination"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="字母组合"
-                android:textColor="#0000FF"
-                android:textSize="15dip" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/tab_classification"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dip"
-            android:saveEnabled="false" >
-
-            <TextView
-                android:id="@+id/word_classification"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="单词分类"
-                android:textColor="#000000"
-                android:textSize="15dip" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/tab_same_look"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dip"
-            android:saveEnabled="false" >
-
-            <TextView
-                android:id="@+id/word_same_look"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="同形异意"
-                android:textColor="#000000"
-                android:textSize="15dip" />
-        </LinearLayout>
-
-    </LinearLayout>
-
+        app:tabMode="fixed"/>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/vPager"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1.0"
-        android:background="#000000"
-        android:flipInterval="30"
-        android:persistentDrawingCache="animation" />
+        android:id="@+id/word_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
 
 </LinearLayout>
