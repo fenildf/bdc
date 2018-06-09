@@ -1,80 +1,52 @@
 package com.example.a00.fragment1;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Handler;
+import android.support.design.widget.TabLayout;
+
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.a00.bdcapp.BookInfoActivity;
+
 import com.example.a00.bdcapp.R;
-import com.simulation.bdc.Service.BookService;
-import com.simulation.bdc.adapter.BookAdapter;
-import com.simulation.bdc.enitity.Book;
-import com.simulation.bdc.util.PictureBitmap;
+import com.example.a00.bdcapp.ViewPagerAdapter;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyCoursesActivity extends AppCompatActivity {
-    private static final String TAG = "MyCoursesActivity";
-    private TextView book,downloaded;
-    private ListView bookList;
-    private String ip = "http://123.206.29.55/";
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
+    private ViewPagerAdapter myFragmentPagerAdapter;
 
-    private List<Book> books;
-    private BookService bookService = new BookService();
+    private TabLayout.Tab one;
+    private TabLayout.Tab two;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_my_courses);
-
-        book = findViewById(R.id.book);
-        downloaded = findViewById(R.id.downloaded);
-
-        bookList = findViewById(R.id.book_list);
-        bookList.setOnItemClickListener(itemClickListener);
-
-        books = bookService.queryBooksFromLocal();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for(int i = 0;i < books.size();i++){
-                    Book book = books.get(i);
-                    book.setCoverPictureBitmap(PictureBitmap.getPictureBitMap(ip + book.getCoverPicture()));
-                }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        BookAdapter bookAdapter = new BookAdapter(MyCoursesActivity.this,books);
-                        bookList.setAdapter(bookAdapter);
-                    }
-                });
-            }
-        }).start();
+        //初始化视图
+        initViews();
 
     }
+    private void initViews() {
 
+        //使用适配器将ViewPager与Fragment绑定在一起
+        mViewPager= (ViewPager) findViewById(R.id.viewpager);
+        myFragmentPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(myFragmentPagerAdapter);
 
-    ListView.OnItemClickListener itemClickListener = new ListView.OnItemClickListener(){
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //将TabLayout与ViewPager绑定在一起
+        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        mTabLayout.setupWithViewPager(mViewPager);
 
-            BookAdapter.ListItemView listItemView = (BookAdapter.ListItemView) view.getTag();
-            BookInfoActivity.startAction(MyCoursesActivity.this,listItemView.book.getBookId());
-        }
-    };
+        //指定Tab的位置
+        one = mTabLayout.getTabAt(0);
+        two = mTabLayout.getTabAt(1);
+
+        //设置Tab的图标，假如不需要则把下面的代码删去
+        one.setIcon(R.mipmap.ic_launcher);
+        two.setIcon(R.mipmap.ic_launcher);
+
+    }
 }
