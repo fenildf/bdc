@@ -8,7 +8,7 @@ import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
-public class Word implements Parcelable{
+public class Word extends DataSupport implements Parcelable {
 
     private long id;//主键
 

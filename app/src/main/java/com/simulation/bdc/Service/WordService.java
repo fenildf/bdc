@@ -8,6 +8,11 @@ import com.simulation.bdc.util.ConnecteURL;
 import com.simulation.bdc.util.ParseJson;
 import com.simulation.bdc.util.RequestURL;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.litepal.crud.DataSupport;
+
 import java.util.List;
 
 public class WordService {
@@ -120,16 +125,18 @@ public class WordService {
      * @return
      */
     public boolean updateReview(Review review){
-        String url = requestUrl.updateReview(review.getReviewId(),review.getReviewTime());
-        String responseData = connecteURL.connecteUrl(url);
+        boolean result = false;
+        if(review != null) {
+            String url = requestUrl.updateReview(review.getReviewId(), review.getReviewTime());
+            String responseData = connecteURL.connecteUrl(url);
 
-        Log.d(TAG, "updateReview: " + responseData);
+            Log.d(TAG, "updateReview: " + responseData + url);
 
-        if(ParseJson.parseResult(responseData) != 0){
-            return true;
-        }else{
-            return false;
+            if (ParseJson.parseResult(responseData) != 0) {
+                result = true;
+            }
         }
+        return result;
     }
 
     /**
@@ -140,6 +147,37 @@ public class WordService {
     public List<Review> queryReview(int userId){
         String responseData = connecteURL.connecteUrl(requestUrl.queryReview(userId));
         Log.d(TAG, "queryReview: " + responseData);
-        return ParseJson.parseReview(responseData);
+        List<Review> reviews = ParseJson.parseReview(responseData);
+        DataSupport.deleteAll(Review.class,"userId=?",userId + "");
+        DataSupport.saveAll(reviews);
+        return reviews;
     }
+
+    /**
+     * 获取本地复习表信息
+     * @param userId
+     * @return
+     */
+    public List<Review> queryReviewFromLocal(int userId){
+        List<Review> reviews = DataSupport.where("userId=? and reviewTime < 4",userId + "").find(Review.class);
+        return reviews;
+    }
+    /**
+     * 通过单词Id查找单词
+     * @param wordId
+     * @return
+     */
+    public Word queryWordByWordId(int wordId){
+        String url = RequestURL.URL + "/word/query_by_word_info?wordId=" + wordId;
+        String responseData = connecteURL.connecteUrl(url);
+        Word word = null;
+        Log.d(TAG, "queryWordByWordId + word : " + responseData + wordId);
+        try {
+            word = ParseJson.parseWord(new JSONArray(responseData).getJSONObject(0));
+        }catch (JSONException e){
+            Log.d(TAG, "queryWordByWordId: " + e);
+        }
+        return word;
+    }
+
 }

@@ -350,10 +350,10 @@ public class ParseJson {
                     Review review = new Review();
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     review.setReviewId(jsonObject.getInt("reviewId"));
-                    review.setAddTime(new Date(jsonObject.getString("addTime")));
+//                    review.setAddTime(new Date(jsonObject.getString("addTime")));
                     review.setUserId(jsonObject.getInt("userId"));
-                    review.setWord(parseWord(jsonObject.getJSONObject("word")));
                     review.setReviewTime(jsonObject.getInt("reviewTime"));
+                    review.setWordId(jsonObject.getInt("wordId"));
                     reviews.add(review);
                 }
             }
