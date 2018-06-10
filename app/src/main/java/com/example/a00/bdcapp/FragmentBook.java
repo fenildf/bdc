@@ -47,29 +47,13 @@ public class FragmentBook extends Fragment {
         bookList = view.findViewById(R.id.lv_book);
         bookList.setOnItemClickListener(itemClickListener);
         books = bookService.queryBooksFromLocal();
-//        ArrayList<HashMap<String,Object>> listItem = new ArrayList<HashMap<String, Object>>();
-//
-//        for (int i=0;i<10;i++)
-//        {
-//            HashMap<String,Object> map = new HashMap<String,Object>();
-//            map.put("book_image",R.drawable.book_pic);
-//            map.put("book_info","新概念课本第一册\n" +
-//                    "小学三年级\n" +
-//                    "出版社\n" +
-//                    "出版时间");
-//            map.put("downloaded",R.drawable.down);
-//            listItem.add(map);
-//        }
-//        SimpleAdapter msimpleAdapter = new SimpleAdapter(getActivity(),listItem,R.layout.item_course,new String[]{"book_image","book_info","downloaded"},new int[]{R.id.book_image,R.id.book_info,R.id.downloaded});
-//
-//        lvBook.setAdapter(msimpleAdapter);
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 for (int i = 0; i < books.size(); i++) {
                     Book book = books.get(i);
-                    book.setCoverPictureBitmap(PictureBitmap.getPictureBitMap(ip + book.getCoverPicture()));
+                    bookService.getBookCoverPicture(book);
                 }
                 getActivity().runOnUiThread(new Runnable() {
                     @Override

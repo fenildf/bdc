@@ -160,8 +160,8 @@ public class StartReciteWordActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     try {
-                        Log.d(TAG, "run: " + ip + word.getProUk());
-                        Log.d(TAG, "run: " + ip + word.getProUsa());
+//                        Log.d(TAG, "run: " + ip + word.getProUk());
+//                        Log.d(TAG, "run: " + ip + word.getProUsa());
                         mediaPlayer.reset();
                         switch (viewId){
                             case R.id.pro_uk_icon:
@@ -193,11 +193,11 @@ public class StartReciteWordActivity extends AppCompatActivity {
     };
     //显示下一个单词
     public void showNextWord(){
-        index++;
-        if(index < wordList.size()){
+        if(index <= wordList.size() - 1){
             userPlan.setHasDone(userPlan.getHasDone()+1); //计划已完成的单词加一
             userPlan.setWordId(word.getWordId());
             word = wordList.get(index);
+            index++;
         }else{
             index=0;
             wordList.clear();
@@ -215,8 +215,8 @@ public class StartReciteWordActivity extends AppCompatActivity {
                     handler.sendMessage(msg);
                 }
             }).start();
-
         }
+
         //更新 用户计划的子线程
         new Thread(new Runnable() {
             @Override
@@ -248,10 +248,6 @@ public class StartReciteWordActivity extends AppCompatActivity {
                         wordList.addAll(wordService.queryWordByUnitId(unit.getUnitId(),user.getUserId()));
                     }
                 }
-                Log.d(TAG, "run: " + DataSupport.where("bookId=?" ,userPlan.getBookId()+"").find(Book.class));
-                Log.d(TAG, "run: " + userPlan);
-                Log.d(TAG, "run: " + wordList);
-                Log.d(TAG, "run: " + book.getUnits());
                 Message msg = new Message();
                 msg.obj = wordList;
                 handler.sendMessage(msg);

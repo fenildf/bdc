@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,7 +35,7 @@ public class BookAdapter extends BaseAdapter {
     private LayoutInflater listContainer;     //视图容器
     private static final String TAG = "BookAdapter";
     private String ip = "http://123.206.29.55/";
-    ListItemView listItemView = null;
+    private ListItemView listItemView = null;
 
     public BookAdapter(Context context, List<Book> books){
         this.context = context;
@@ -72,6 +73,7 @@ public class BookAdapter extends BaseAdapter {
         listItemView.book = book;
         listItemView.bookName.setText(book.getBookName());
         listItemView.bookCoverPicture.setImageBitmap(book.getCoverPictureBitmap());
+
         return convertView;
     }
 
@@ -81,28 +83,8 @@ public class BookAdapter extends BaseAdapter {
         public Book book;
         public TextView bookName;
         public ImageView bookCoverPicture;
+
     }
 
 
-//    public Bitmap getPictureBitMap(String url) {
-//        URL pictureUrl = null;
-//        Bitmap bitmap = null;
-//        try {
-//            pictureUrl = new URL(url);
-//        } catch (MalformedURLException e) {
-//            Log.e(TAG, "returnBitMap: " + e);
-//        }
-//        try {
-//            HttpURLConnection conn = (HttpURLConnection) pictureUrl
-//                    .openConnection();
-//            conn.setDoInput(true);
-//            conn.connect();
-//            InputStream is = conn.getInputStream();
-//            bitmap = BitmapFactory.decodeStream(is);
-//            is.close();
-//        } catch (IOException e) {
-//            Log.e(TAG, "returnBitMap: " + e);
-//        }
-//        return bitmap;
-//    }
 }

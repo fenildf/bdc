@@ -64,14 +64,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="今日背诵 "
-                    android:id="@+id/today_task"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="50"
+                    android:text="还没有背诵计划"
                     android:id="@+id/word_number"/>
-
             </LinearLayout>
 
             <Button
