@@ -46,7 +46,6 @@ public class HomeActivity extends AppCompatActivity {
     private Button review;
     private Button mine;
     private Button story;
-    private TextView todayTask;
     private TextView wordNumber;
     private Button startReciteWord;
 
@@ -71,7 +70,6 @@ public class HomeActivity extends AppCompatActivity {
         review = findViewById(R.id.review);
         mine = findViewById(R.id.mine);
         story = findViewById(R.id.story);
-        todayTask = findViewById(R.id.today_task);
         wordNumber = findViewById(R.id.word_number);
         startReciteWord = findViewById(R.id.start_recite_word);
 
@@ -79,10 +77,17 @@ public class HomeActivity extends AppCompatActivity {
 
         if(userPlans != null && !userPlans.isEmpty()){
             userPlan = userPlans.get(0);
-            wordNumber.setText(userPlan.getWordNumber() + "");
+            if(userPlan.getBook().getWordNumber() == userPlan.getHasDone()){
+                wordNumber.setText("计划已完成");
+                startReciteWord.setText("更改计划");
+            }else {
+                wordNumber.setText("今日背诵:" + userPlan.getWordNumber());
+            }
         }
-        Log.d(TAG, "onCreate: " + userPlan);
-        Log.d(TAG, "onCreate: " + userPlan.getBook().getUnits());
+        Log.d(TAG, "onCreate: " + userPlans);
+        Log.d(TAG, "onCreate: " + userPlan.getBook());
+
+
         //点击查询，跳转到单词释义显示界面
         searchTextEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,17 +157,19 @@ public class HomeActivity extends AppCompatActivity {
         startReciteWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(userPlan != null  ) {
-                    if(userPlan.getBook().getWordNumber() != userPlan.getHasDone()) {
-                        Intent intent = new Intent(HomeActivity.this, StartReciteWordActivity.class);
-                        startActivity(intent);
+                if(!startReciteWord.getText().toString().equals("更改计划")){
+                    if(userPlan != null  ) {
+                        if(userPlan.getBook().getWordNumber() != userPlan.getHasDone()) {
+                            Intent intent = new Intent(HomeActivity.this, StartReciteWordActivity.class);
+                            startActivity(intent);
+                        }else{
+                            toast("当前计划已完成，请选择其他计划");
+                        }
                     }else{
-                        toast("当前计划已完成，请选择其他计划");
+                        toast("请先添加计划");
+                        Intent intent = new Intent(HomeActivity.this,MyCoursesActivity.class);
+                        startActivity(intent);
                     }
-                }else{
-                    toast("请先添加计划");
-                    Intent intent = new Intent(HomeActivity.this,MyCoursesActivity.class);
-                    startActivity(intent);
                 }
             }
         });

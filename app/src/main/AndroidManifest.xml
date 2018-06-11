@@ -53,7 +53,7 @@
         <activity android:name="com.example.a00.fragment1.WordInfoActivity" />
         <activity android:name=".StartReciteWordActivity" />
         <activity android:name=".MineActivity" />
-        <activity android:name=".BookInfoActivity"></activity>
+        <activity android:name=".BookInfoActivity" />
     </application>
 
 </manifest>

@@ -41,6 +41,7 @@ public class UserService {
         DataSupport.deleteAll(User.class,"phoneNo=?",phoneNo);
         DataSupport.deleteAll(UserPlan.class);
 
+        Log.d(TAG, "userLogin: " + responseData);
         User user = ParseJson.parseUserJson(responseData);
         if (user != null) {
             user.setPassword(password);

@@ -10,8 +10,6 @@ import android.os.Bundle;
 import com.example.a00.bdcapp.R;
 import com.example.a00.bdcapp.ViewPagerAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class MyCoursesActivity extends AppCompatActivity {
     private TabLayout mTabLayout;

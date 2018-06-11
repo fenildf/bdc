@@ -1,14 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.a00.bdcapp.FragmentDownloaded">
+    tools:context="com.example.a00.bdcapp.FramentMyPlan">
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/lv_downloaded">
+        android:id="@+id/plan_list">
     </ListView>
-
 </RelativeLayout>
-
