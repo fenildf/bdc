@@ -85,7 +85,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
         Log.d(TAG, "onCreate: " + userPlans);
-        Log.d(TAG, "onCreate: " + userPlan.getBook());
+//        Log.d(TAG, "onCreate: " + userPlan.getBook());
 
 
         //点击查询，跳转到单词释义显示界面

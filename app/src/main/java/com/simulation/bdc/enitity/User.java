@@ -63,7 +63,7 @@ public class User extends DataSupport {
 
     public List<UserPlan> getPlans() {
         if(plans == null  || plans.isEmpty()){
-            plans = DataSupport.where("user_id = ?" ,id + "").find(UserPlan.class);
+            plans = DataSupport.where("user_id = ?" ,id + "").order("isDoing desc,planId").find(UserPlan.class);
             Log.d(TAG, "getPlans: " +  plans + "userId=?" + getUserId()+"");
         }
         return plans;

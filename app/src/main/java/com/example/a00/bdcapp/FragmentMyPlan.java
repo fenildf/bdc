@@ -29,7 +29,7 @@ public class FragmentMyPlan extends Fragment {
     private UserService userService = new UserService();
     private BookService bookService = new BookService();
     private List<UserPlan> userPlans; //用户计划列表
-    private UserPlan isDoingPlan; //当前正在进行的计划
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_plan,container, false);
@@ -62,21 +62,5 @@ public class FragmentMyPlan extends Fragment {
         userPlans = user.getPlans();
     }
 
-    /**
-     * 更新计划列表
-     */
-    public void updateUIPlanList(){
-        for(UserPlan userPlan : userPlans) {
-            if (userPlan.getIsDoing() == 1) {
-                isDoingPlan = userPlan;
-            }
-        }
-        planList.setAdapter(new PlanAdapter(getActivity(),userPlans));
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        updateUIPlanList();
-    }
 }
