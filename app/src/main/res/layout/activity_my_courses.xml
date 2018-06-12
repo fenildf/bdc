@@ -12,10 +12,12 @@
         android:layout_height="wrap_content"
         app:tabMode="fixed">
         <android.support.design.widget.TabItem
+            android:id="@+id/course"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="教材"/>
         <android.support.design.widget.TabItem
+            android:id="@+id/my_plan"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="我的计划"/>

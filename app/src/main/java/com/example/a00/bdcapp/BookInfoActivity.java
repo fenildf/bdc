@@ -48,6 +48,7 @@ public class BookInfoActivity extends AppCompatActivity {
     private List<UserPlan> plans;
 
     private String ip = "http://123.206.29.55/";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

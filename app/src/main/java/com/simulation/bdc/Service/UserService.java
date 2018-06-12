@@ -109,8 +109,8 @@ public class UserService {
      * @param userId
      * @return
      */
-    public List<UserPlan> queryUserPlanFromLocal(int userId){
-        return DataSupport.where("userId=? and isDoing=?", userId+"",1+"").find(UserPlan.class);
+    public UserPlan queryUserPlanFromLocal(int userId){
+        return DataSupport.where("userId=? and isDoing=?", userId+"",1+"").findFirst(UserPlan.class);
     }
 
     /**
