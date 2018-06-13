@@ -86,7 +86,6 @@ public class BookInfoActivity extends AppCompatActivity {
                }
            }).start();
         }
-        initAddToPlanButton(bookId);
     }
 
     /**
@@ -113,7 +112,7 @@ public class BookInfoActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             String butotnText = addToPlan.getText().toString();
-            if(butotnText.equals("添加到计划")){
+            if("添加到计划".equals(butotnText)){
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -148,6 +147,7 @@ public class BookInfoActivity extends AppCompatActivity {
             }
         }).start();
     }
+
     private final int SHOW_BOOK_COVER_PICTURE = 1;
     private final int ADD_PLAN_SUCESS=2;
     private final int ADD_PLAN_FAIL = 3;
@@ -190,6 +190,7 @@ public class BookInfoActivity extends AppCompatActivity {
         bookPublisherTextView.append(book.getPublisher().getPublisherName());
         bookWordNumberTextView.append(book.getWordNumber() + "");
         unitListView.setAdapter(new UnitAdapter(BookInfoActivity.this,book.getUnits()));
+        initAddToPlanButton(book.getBookId());
         Log.d(TAG, "showBookInfo: " + book.getUnits());
     }
     /**

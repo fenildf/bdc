@@ -146,7 +146,8 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String startReciteWordText = startReciteWord.getText().toString();
-                if(PLAN_COMPLETE.equals(startReciteWordText)){
+                Log.d(TAG, "onClick: " + startReciteWordText);
+                if(PLAN_CHANGE.equals(startReciteWordText)){
                     jumpTo(MyCoursesActivity.class); //跳转到我的课程页面
                 }else if(START_RECITE.equals(startReciteWordText)){
                     jumpTo(StartReciteWordActivity.class);//跳转到开始背单词页面
@@ -213,6 +214,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d(TAG, "onResume: " + "重启HomeActivity");
         initActivity(); //再次回到此页面时初始化页面
     }
 
