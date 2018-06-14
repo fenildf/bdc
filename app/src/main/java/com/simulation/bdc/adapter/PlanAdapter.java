@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -25,17 +24,16 @@ public class PlanAdapter extends BaseAdapter{
     private LayoutInflater listContainer;     //视图容器
     private List<UserPlan> userPlans;
     private ListItemView listItemView = null;
-    private UserPlan isDoingUserPlan; //当前计划
     private UserService userService = new UserService();
-    private int index;//当前正在进行计划的下标
+    private int index; //当前正在进行计划的下标
     private View view;
+
 
 
     public PlanAdapter(Context context, List<UserPlan> userPlans){
         this.context = context;
         this.userPlans = userPlans;
         listContainer = LayoutInflater.from(context);    //创建视图容器并设置上下文
-        this.isDoingUserPlan = isDoingUserPlan;
     }
 
     @Override
@@ -56,13 +54,15 @@ public class PlanAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null){
-            listItemView = new ListItemView();
+            listItemView = new ListItemView()
+            ;
             convertView = listContainer.inflate(R.layout.plan_item,null);
             listItemView.bookName = (TextView)convertView.findViewById(R.id.book_name);
             listItemView.bookCoverPicture = (ImageView) convertView.findViewById(R.id.book_cover_picture);
             listItemView.progressBar = (ProgressBar) convertView.findViewById(R.id.progressBar);
             listItemView.isDoing = (Button) convertView.findViewById(R.id.set_is_doing);
-            listItemView.isDoing.setOnClickListener(new MyClickListener(position,convertView));
+            listItemView.isDoing.setOnClickListener(new MyClickListener(position));
+
             convertView.setTag(listItemView);
         }else{
             listItemView = (ListItemView) convertView.getTag();
@@ -75,8 +75,8 @@ public class PlanAdapter extends BaseAdapter{
 
         listItemView.progressBar.setMax(book.getWordNumber());
         listItemView.progressBar.setProgress(userPlan.getHasDone());
+
         if(userPlan.getIsDoing() == 1){
-            isDoingUserPlan = userPlan;
             index = position;
             view = convertView;
             listItemView.isDoing.setText("当前计划");
@@ -84,53 +84,51 @@ public class PlanAdapter extends BaseAdapter{
         }
         return convertView;
     }
+
     public final class ListItemView{
         public UserPlan userPlan;
         public TextView bookName;
         public ImageView bookCoverPicture;
         public ProgressBar progressBar;
         public Button isDoing;
+
+        @Override
+        public String toString() {
+            return "ListItemView{" +
+                    "userPlan=" + userPlan +
+                    ", bookName=" + bookName +
+                    ", bookCoverPicture=" + bookCoverPicture +
+                    ", progressBar=" + progressBar +
+                    ", isDoing=" + isDoing +
+                    '}';
+        }
     }
 
     class MyClickListener implements View.OnClickListener{
         int position;
-        View clickView;
-        public MyClickListener(int position,View clickView){
+        public MyClickListener(int position){
             this.position = position;
-            this.clickView = clickView;
         }
         @Override
         public void onClick(View v) {
-            listItemView.userPlan.setIsDoing(1);
-            isDoingUserPlan.setIsDoing(0);
-            updateUserPlanToServer(listItemView.userPlan);
-            updateUserPlanToServer(isDoingUserPlan);
-            isDoingUserPlan = listItemView.userPlan;
+            UserPlan userPlan = userPlans.get(position);
+            userPlan.setIsDoing(1);
 
-//            ListItemView listItemView = (ListItemView) view.getTag();
-//            listItemView.isDoing.setText("设为当前");
-//            listItemView.isDoing.setClickable(true);
-            Log.d("test", "onClick: " + userPlans);
+            updateUserPlanToServer(userPlan);
+            userPlans.get(index).setIsDoing(0);
+            updateUserPlanToServer(userPlans.get(index));
+            index = position;
+            updateView(view);
             notifyDataSetChanged();
         }
     }
 
-    /**
-     * 按钮的监听器
-     */
-    View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            listItemView.userPlan.setIsDoing(1);
-            isDoingUserPlan.setIsDoing(0);
-            updateUserPlanToServer(listItemView.userPlan);
-            updateUserPlanToServer(isDoingUserPlan);
-            isDoingUserPlan = listItemView.userPlan;
-            Log.d("test", "onClick: " + userPlans);
-            notifyDataSetChanged();
-        }
-    };
-
+    public void updateView(View view){
+        ListItemView listItemView = (ListItemView) view.getTag();
+        Log.d("planAdapter", "updateView: " + listItemView);
+        listItemView.isDoing.setText("设为当前");
+        listItemView.isDoing.setEnabled(true);
+    }
     /**
      * 更新用户计划到服务器
      * @param userPlan
@@ -143,5 +141,6 @@ public class PlanAdapter extends BaseAdapter{
             }
         }).start();
     }
+
 
 }

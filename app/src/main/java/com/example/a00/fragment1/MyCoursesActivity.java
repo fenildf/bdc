@@ -27,6 +27,8 @@ public class MyCoursesActivity extends AppCompatActivity {
         initViews();
 
     }
+
+
     private void initViews() {
 
         //使用适配器将ViewPager与Fragment绑定在一起

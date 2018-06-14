@@ -51,13 +51,11 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private UserService userService = new UserService();
-
     private User user = userService.queryLoginUser();
     private WordService wordService = new WordService();
     private BookService bookService = new BookService();
 
     private UserPlan userPlan;
-    List<UserPlan> userPlans;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,29 +71,17 @@ public class HomeActivity extends AppCompatActivity {
         wordNumber = findViewById(R.id.word_number);
         startReciteWord = findViewById(R.id.start_recite_word);
 
-        userPlans = userService.queryUserPlanFromLocal(user.getUserId());
-
-        if(userPlans != null && !userPlans.isEmpty()){
-            userPlan = userPlans.get(0);
-            if(userPlan.getBook().getWordNumber() == userPlan.getHasDone()){
-                wordNumber.setText("计划已完成");
-                startReciteWord.setText("更改计划");
-            }else {
-                wordNumber.setText("今日背诵:" + userPlan.getWordNumber());
-            }
-        }
-        Log.d(TAG, "onCreate: " + userPlans);
-        Log.d(TAG, "onCreate: " + userPlan.getBook());
+        initActivity(); //初始或当前页面
 
 
         //点击查询，跳转到单词释义显示界面
         searchTextEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, SearchWordsActivity.class);
-                startActivity(intent);
+                jumpTo(SearchWordsActivity.class);
             }
         });
+
         //点击我的课程，跳转到我的课程页面，显示已收藏教材和已下载的课程
         myCourse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,41 +121,38 @@ public class HomeActivity extends AppCompatActivity {
                 }).start();
             }
         });
+
         //点击我的，跳到用户管理界面，显示用户头像，生词本等内容
         mine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, MineActivity.class);
-                startActivity(intent);
+                jumpTo(MineActivity.class);
             }
         });
+
         //点击故事，跳转到故事阅读，显示小故事
         story.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, StoryReadingActivity.class);
-                startActivity(intent);
+                jumpTo(StoryReadingActivity.class);
             }
         });
 
 
-        //点击开始背单词，跳转到背诵单词的界面
+        /**
+         * 根据用户计划的状态判断点击startReciteWord按钮后页面的不同跳转
+         */
         startReciteWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!startReciteWord.getText().toString().equals("更改计划")){
-                    if(userPlan != null  ) {
-                        if(userPlan.getBook().getWordNumber() != userPlan.getHasDone()) {
-                            Intent intent = new Intent(HomeActivity.this, StartReciteWordActivity.class);
-                            startActivity(intent);
-                        }else{
-                            toast("当前计划已完成，请选择其他计划");
-                        }
-                    }else{
-                        toast("请先添加计划");
-                        Intent intent = new Intent(HomeActivity.this,MyCoursesActivity.class);
-                        startActivity(intent);
-                    }
+                String startReciteWordText = startReciteWord.getText().toString();
+                Log.d(TAG, "onClick: " + startReciteWordText);
+                if(PLAN_CHANGE.equals(startReciteWordText)){
+                    jumpTo(MyCoursesActivity.class); //跳转到我的课程页面
+                }else if(START_RECITE.equals(startReciteWordText)){
+                    jumpTo(StartReciteWordActivity.class);//跳转到开始背单词页面
+                }else if(ADD_PLAN.equals(startReciteWordText)){
+                    jumpTo(MyCoursesActivity.class); //跳转到我的课程页面
                 }
             }
         });
@@ -185,13 +168,15 @@ public class HomeActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what){
                 case REVIEW:{
-                    Intent intent = new Intent(HomeActivity.this,ReviewPlanActivity.class);
-                    startActivity(intent);
+                    jumpTo(ReviewPlanActivity.class);
+                    break;
+                }
+                case FAIL:{
+                    toast("没有要复习的单词");
                     break;
                 }
                 case MY_COURSES:{
-                    Intent intent = new Intent(HomeActivity.this, MyCoursesActivity.class);
-                    startActivity(intent);
+                    jumpTo(MyCoursesActivity.class);
                     break;
                 }
                 case MY_COURSES_IS_NULL:{
@@ -201,6 +186,38 @@ public class HomeActivity extends AppCompatActivity {
         }
     };
 
+    private final String PLAN_COMPLETE = "计划已完成";
+    private final String PLAN_CHANGE = "更改计划";
+    private final String NO_PLAN = "当前没有计划";
+    private final String START_RECITE = "开始背诵";
+    private final String TODAY_RECITE = "今日背诵:";
+    private final String ADD_PLAN = "添加计划";
+    /**
+     * 初始化当前页面
+     */
+    public void initActivity(){
+        userPlan = userService.queryUserPlanFromLocal(user.getUserId());
+        if(userPlan != null){
+            if(userPlan.getBook().getWordNumber() == userPlan.getHasDone()){
+                wordNumber.setText(PLAN_COMPLETE);
+                startReciteWord.setText(PLAN_CHANGE);
+            }else {
+                wordNumber.setText(TODAY_RECITE + userPlan.getWordNumber());
+                startReciteWord.setText(START_RECITE);
+            }
+        }else{
+            wordNumber.setText(NO_PLAN);
+            startReciteWord.setText(ADD_PLAN);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: " + "重启HomeActivity");
+        initActivity(); //再次回到此页面时初始化页面
+    }
+
     /**
      * 在当前页面上广播
      * @param text
@@ -208,4 +225,14 @@ public class HomeActivity extends AppCompatActivity {
     public void toast(String text){
         Toast.makeText(HomeActivity.this,text,Toast.LENGTH_SHORT).show();
     }
+
+    /**
+     * 跳转到activityClass 所代表的页面
+     * @param activityClass
+     */
+    private void jumpTo(Class activityClass){
+        Intent intent = new Intent(HomeActivity.this,activityClass);
+        startActivity(intent);
+    }
+
 }
