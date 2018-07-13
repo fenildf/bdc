@@ -7,51 +7,37 @@
     tools:context="com.example.a00.bdcapp.MineActivity">
 
 
-    <!--
+    <com.example.a00.fragment1.CircleImageView
+        android:id="@+id/user_picture"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/icon"
+        android:layout_marginTop="5dp"/>
 
-        <ImageView
-            android:id="@+id/user_picture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/icon" />-->
-
-<!--    <LinearLayout
+    <TextView
+        android:id="@+id/user_name_show"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:id="@+id/user_picture"
-        android:orientation="vertical">
+        android:layout_below="@+id/user_picture"
+        android:gravity="center_horizontal"
+        android:text="昵称"
+        android:textSize="20sp" />
 
-        <com.example.a00.CircleImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon"
-            />
-
-        <TextView
-            android:id="@+id/usernameshow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/user_picture"
-            android:gravity="center_horizontal"
-            android:text="小猪佩奇"
-            android:textSize="20sp" />
-
-    </LinearLayout>-->
 
     <Button
         android:id="@+id/user_revise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/user_picture"
         android:background="#00000000"
-        android:text="基本信息" />
+        android:text="基本信息"
+        android:layout_below="@+id/user_name_show"/>
 
     <Button
         android:id="@+id/user_wordlist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/user_revise"
         android:background="#00000000"
         android:text="单词本" />

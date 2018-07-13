@@ -1,108 +1,277 @@
 package com.example.a00.fragment3;
 
+import android.animation.ValueAnimator;
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.a00.bdcapp.R;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-
 /**
  * 当用户要替换头像时调用本地图库或者拍摄
  */
-public class GetPictureActivity extends AppCompatActivity {
-    private ImageButton album;
-    private ImageButton camera;
-    private static final int CAMERA = 1025;
-    private static final int ALBUM = 1026;
-    private File mFolder;
-    private String mImgName;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_picture);
-
-        album = findViewById(R.id.album);
-        camera = findViewById(R.id.camera);
-
-        album.setOnClickListener(new View.OnClickListener() {
+public class GetPictureActivity {
+   /* private Button picAlbum,picCamera,cancel;
+    private View mMenuView;
+    public GetPictureActivity(Activity context, View.OnClickListener itemsOnClick) {
+        super(context);
+        LayoutInflater inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mMenuView = inflater.inflate(R.layout.activity_get_picture, null);
+        picAlbum = (Button) mMenuView.findViewById(R.id.pic_album);
+        picCamera = (Button) mMenuView.findViewById(R.id.pic_camera);
+        cancel = (Button) mMenuView.findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
+            public void onClick(View v) {
+                dismiss();
             }
         });
-        camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        picAlbum.setOnClickListener(itemsOnClick);
+        picCamera.setOnClickListener(itemsOnClick);
+        //设置SelectPicPopupWindow的View
+        this.setContentView(mMenuView);
+        //设置SelectPicPopupWindow弹出窗体的宽
+        this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        //设置SelectPicPopupWindow弹出窗体的高
+        this.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        //设置SelectPicPopupWindow弹出窗体可点击
+        this.setFocusable(true);
+ *//*       //设置SelectPicPopupWindow弹出窗体动画效果
+        this.setAnimationStyle(R.style.AnimBottom);*//*
+        //实例化一个ColorDrawable颜色为半透明
+        ColorDrawable dw = new ColorDrawable(0000000000);
+        //设置SelectPicPopupWindow弹出窗体的背景
+        this.setBackgroundDrawable(dw);
+        //mMenuView添加OnTouchListener监听判断获取触屏位置如果在选择框外面则销毁弹出框
+        mMenuView.setOnTouchListener(new View.OnTouchListener() {
 
+            public boolean onTouch(View v, MotionEvent event) {
+
+                int height = mMenuView.findViewById(R.id.pop_layout).getTop();
+                int y = (int) event.getY();
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (y < height) {
+                        dismiss();
+                    }
+                }
+                return true;
             }
         });
-    }
-    /*
-     * 设置从相机获取图片
+    }*/
+    //上下文对象
+    private Context mContext;
+    //Title文字
+    private String mTitle;
+    //PopupWindow对象
+    private PopupWindow mPopupWindow;
+    //选项的文字
+    private String[] options;
+    //选项的颜色
+    private int[] Colors;
+    //点击事件
+    private onPopupWindowItemClickListener itemClickListener;
+
+    /**
+     * 一个参数的构造方法，用于弹出无标题的PopupWindow
+     *
+     * @param context
      */
-    private void getImgFromCamra() {
-        String state = Environment.getExternalStorageState();
-        // 先检测是不是有内存卡。
-        if (state.equals(Environment.MEDIA_MOUNTED)) {
-            mFolder = new File(Environment.getExternalStorageDirectory(), "bCache");
-            // 判断手机中有没有这个文件夹，没有就新建。
-            if (!mFolder.exists()) {
-                mFolder.mkdirs();
+    public GetPictureActivity (Context context) {
+        this.mContext = context;
+    }
+
+    /**
+     * 2个参数的构造方法，用于弹出有标题的PopupWindow
+     *
+     * @param context
+     * @param title   标题
+     */
+    public GetPictureActivity (Context context, String title) {
+        this.mContext = context;
+        this.mTitle = title;
+    }
+
+    /**
+     * 设置选项的点击事件
+     *
+     * @param itemClickListener
+     */
+    public void setItemClickListener(onPopupWindowItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+
+    /**
+     * 设置选项文字
+     */
+    public void setItemText(String... items) {
+        options = items;
+    }
+
+    /**
+     * 设置选项文字颜色，必须要和选项的文字对应
+     */
+    public void setColors(int... color) {
+        Colors = color;
+    }
+
+
+    /**
+     * 添加子View
+     */
+    private void addView(View v) {
+        LinearLayout lin_layout = (LinearLayout) v.findViewById(R.id.layout_popup_add);
+        //Title
+        TextView tv_pop_title = (TextView) v.findViewById(R.id.tv_popup_title);
+        //取消按钮
+        Button bCancel = (Button) v.findViewById(R.id.btn_cancel);
+        bCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
             }
-            // 自定义图片名字，这里是以毫秒数作为图片名。
-            mImgName = System.currentTimeMillis() + ".jpg";
-            Uri uri = Uri.fromFile(new File(mFolder, mImgName));
-            // 调用系统拍照功能。
-            Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-            startActivityForResult(intent, CAMERA);
+        });
+        if (mTitle != null) {
+            tv_pop_title.setText(mTitle);
         } else {
-            Toast.makeText(this, "未检测到SD卡", Toast.LENGTH_SHORT).show();
+            tv_pop_title.setVisibility(View.GONE);
+        }
+        if (options != null && options.length > 0) {
+            for (int i = 0; i < options.length; i++) {
+                View item = LayoutInflater.from(mContext).inflate(R.layout.itemchoose, null);
+                Button btn_txt = (Button) item.findViewById(R.id.btn_popup_option);
+                btn_txt.setText(options[i]);
+                if (Colors != null && Colors.length == options.length) {
+                    btn_txt.setTextColor(Colors[i]);
+                }
+                final int finalI = i;
+                btn_txt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (itemClickListener != null) {
+                            itemClickListener.onItemClick(finalI);
+                        }
+                    }
+                });
+                lin_layout.addView(item);
+            }
         }
     }
-    /*
-    从本地图库获取图片
+
+    /**
+     * 弹出Popupwindow
      */
-    private void getImgFromAlbum() {
-                 // 调用本地图库。
-                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                 intent.setType("image/*");
-                 startActivityForResult(intent, ALBUM);
-             }
+    public void showPopupWindow() {
+        View popupWindow_view = LayoutInflater.from(mContext).inflate(R.layout.activity_get_picture, null);
+        //添加子View
+        addView(popupWindow_view);
+        mPopupWindow = new PopupWindow(popupWindow_view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mPopupWindow.setAnimationStyle(R.style.popwindow_anim_style);
+        mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+        mPopupWindow.setFocusable(true);
+        mPopupWindow.setOutsideTouchable(true);
+        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                setWindowAlpa(false);
+            }
+        });
+        //防止挡住虚拟键
+        mPopupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        show(popupWindow_view);
+    }
 
-              public void onActivityResult(int requestCode, int resultCode, Intent data) {
-                 Bitmap bm;
-                 if (resultCode == RESULT_OK && requestCode == CAMERA) {
-                         // 调用系统方法获取到的是被压缩过的图片，通过自定义路径轻松获取原始图片。
-                         bm = BitmapFactory.decodeFile(mFolder.getAbsolutePath()
-                                         + File.separator + mImgName);
-                     }
 
-                 if (resultCode == RESULT_OK && requestCode == ALBUM) {
-                         try {
-                                 if (data != null) {
-                                         // 获取本地相册图片。
-                                         Uri uri = data.getData();
-                                         ContentResolver cr = getContentResolver();
-                                         bm = BitmapFactory.decodeStream(cr.openInputStream(uri));
-                                     }
-                             } catch (FileNotFoundException e) {
-                                 e.printStackTrace();
-                             }
-                     }
-             }
+    /**
+     * 显示PopupWindow
+     */
+    private void show(View v) {
+        if (mPopupWindow != null && !mPopupWindow.isShowing()) {
+            mPopupWindow.showAtLocation(v, Gravity.BOTTOM, 0, 0);
+        }
+        setWindowAlpa(true);
+    }
 
+
+    /**
+     * 消失PopupWindow
+     */
+    public void dismiss() {
+        if (mPopupWindow != null && mPopupWindow.isShowing()) {
+            mPopupWindow.dismiss();
+        }
+    }
+
+    /**
+     * 动态设置Activity背景透明度
+     *
+     * @param isopen
+     */
+    public void setWindowAlpa(boolean isopen) {
+        if (Build.VERSION.SDK_INT < 11) {
+            return;
+        }
+        final Window window = ((Activity) mContext).getWindow();
+        final WindowManager.LayoutParams lp = window.getAttributes();
+        window.setFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND, WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        ValueAnimator animator;
+        if (isopen) {
+            animator = ValueAnimator.ofFloat(1.0f, 0.5f);
+        } else {
+            animator = ValueAnimator.ofFloat(0.5f, 1.0f);
+        }
+        animator.setDuration(400);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+            @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float alpha = (float) animation.getAnimatedValue();
+                lp.alpha = alpha;
+                window.setAttributes(lp);
+            }
+        });
+        animator.start();
+    }
+
+
+    /**
+     * 点击事件选择回调
+     */
+    public interface onPopupWindowItemClickListener {
+        void onItemClick(int position);
+    }
 }
+
