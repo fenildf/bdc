@@ -42,55 +42,7 @@ import com.example.a00.bdcapp.R;
  * 当用户要替换头像时调用本地图库或者拍摄
  */
 
-public class GetPictureActivity {
-   /* private Button picAlbum,picCamera,cancel;
-    private View mMenuView;
-    public GetPictureActivity(Activity context, View.OnClickListener itemsOnClick) {
-        super(context);
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mMenuView = inflater.inflate(R.layout.activity_get_picture, null);
-        picAlbum = (Button) mMenuView.findViewById(R.id.pic_album);
-        picCamera = (Button) mMenuView.findViewById(R.id.pic_camera);
-        cancel = (Button) mMenuView.findViewById(R.id.cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
-        picAlbum.setOnClickListener(itemsOnClick);
-        picCamera.setOnClickListener(itemsOnClick);
-        //设置SelectPicPopupWindow的View
-        this.setContentView(mMenuView);
-        //设置SelectPicPopupWindow弹出窗体的宽
-        this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-        //设置SelectPicPopupWindow弹出窗体的高
-        this.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-        //设置SelectPicPopupWindow弹出窗体可点击
-        this.setFocusable(true);
- *//*       //设置SelectPicPopupWindow弹出窗体动画效果
-        this.setAnimationStyle(R.style.AnimBottom);*//*
-        //实例化一个ColorDrawable颜色为半透明
-        ColorDrawable dw = new ColorDrawable(0000000000);
-        //设置SelectPicPopupWindow弹出窗体的背景
-        this.setBackgroundDrawable(dw);
-        //mMenuView添加OnTouchListener监听判断获取触屏位置如果在选择框外面则销毁弹出框
-        mMenuView.setOnTouchListener(new View.OnTouchListener() {
-
-            public boolean onTouch(View v, MotionEvent event) {
-
-                int height = mMenuView.findViewById(R.id.pop_layout).getTop();
-                int y = (int) event.getY();
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (y < height) {
-                        dismiss();
-                    }
-                }
-                return true;
-            }
-        });
-    }*/
+public class GetPictureActivity extends PopupWindow{
     //上下文对象
     private Context mContext;
     //Title文字
@@ -240,7 +192,7 @@ public class GetPictureActivity {
      * @param isopen
      */
     public void setWindowAlpa(boolean isopen) {
-        if (Build.VERSION.SDK_INT < 11) {
+        if (Build.VERSION.SDK_INT < 20) {
             return;
         }
         final Window window = ((Activity) mContext).getWindow();

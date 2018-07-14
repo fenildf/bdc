@@ -17,4 +17,8 @@
         </attr>
 
     </declare-styleable>
+    <declare-styleable name="RoundRelative">
+        <attr name="background_color" format="color" />
+        <attr name="background_alpha" format="integer" />
+    </declare-styleable>
 </resources>
