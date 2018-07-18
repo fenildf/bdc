@@ -4,19 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context="com.example.a00.fragment3.WordlistActivity">
     <android.support.design.widget.TabLayout
         android:id="@+id/word_tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="fixed"/>
+        app:tabMode="fixed">
+        <android.support.design.widget.TabItem
+            android:id="@+id/word_combination"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="字母组合"/>
+        <android.support.design.widget.TabItem
+            android:id="@+id/word_classify"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="单词分类"/>
+        <android.support.design.widget.TabItem
+            android:id="@+id/word_homonym"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="同形异意"/>
+    </android.support.design.widget.TabLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/word_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        />
+        android:layout_weight="1" >
+    </android.support.v4.view.ViewPager>
 
 </LinearLayout>

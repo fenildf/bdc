@@ -30,11 +30,12 @@ public class WordlistActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wordlist);
+        InitViews();
     }
     private void InitViews() {
 
         //使用适配器将ViewPager与Fragment绑定在一起
-        mViewPager= (ViewPager) findViewById(R.id.word_viewpager);
+        mViewPager= findViewById(R.id.word_viewpager);
         FragmentPagerAdapter = new WordViewPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(FragmentPagerAdapter);
 

@@ -80,7 +80,6 @@ public class StartUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         View view = View.inflate(this, R.layout.activity_startup, null);
         setContentView(view);
 
