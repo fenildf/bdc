@@ -6,59 +6,69 @@
     android:background="@drawable/loginbackground"
     tools:context="com.example.a00.bdcapp.LoginActivity">
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/logo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:id="@+id/logo"/>
-    <EditText
-        android:layout_height="50dp"
-        android:layout_width="250dp"
-        android:layout_marginTop="30dp"
-        android:textSize="16sp"
-        android:textColor="#FFAD33"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/username"
-        android:layout_centerInParent="true"
-        android:hint="账户/手机号" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <EditText
-        android:layout_height="50dp"
-        android:layout_width="250dp"
-        android:textSize="16sp"
-        android:textColor="#FFAD33"
-        android:hint="密码"
-        android:id="@+id/password"
-        android:inputType="textPassword"
-        android:layout_below="@id/username"
-        android:layout_centerHorizontal="true" />
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="100dp"
+                    android:src="@drawable/logo" />
 
-    <LinearLayout
-        android:id="@+id/layout_log_re"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/password"
-        android:gravity="center_horizontal">
+                <EditText
+                    android:id="@+id/username"
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:hint="账户/手机号"
+                    android:textColor="#FFAD33"
+                    android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00000000"
-            android:text="登录"
-            android:textSize="16sp" />
-        <Button
-            android:id="@+id/register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00000000"
-            android:text="注册"
-            android:textSize="16sp" />
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:hint="密码"
+                    android:inputType="textPassword"
+                    android:textColor="#FFAD33"
+                    android:textSize="16sp" />
 
-    </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layout_log_re"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+                    <Button
+                        android:id="@+id/login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:text="登录"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/register"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:text="注册"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
 
     <TextView
         android:id="@+id/forgetpassword"
@@ -68,4 +78,5 @@
         android:layout_centerHorizontal="true"
         android:background="#00000000"
         android:text="忘记密码？" />
+
 </RelativeLayout>
