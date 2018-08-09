@@ -40,8 +40,7 @@ import java.util.List;
  */
 public class HomeActivity extends AppCompatActivity {
     private static final String TAG = "HomeActivity";
-    private EditText searchTextEdit;
-    private Button searchButton;
+    private Button searchTextEdit;
     private Button myCourse;
     private Button review;
     private Button mine;
@@ -63,7 +62,6 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         searchTextEdit = findViewById(R.id.search_text_edit);
-        searchButton = findViewById(R.id.search);
         myCourse = findViewById(R.id.mycourse);
         review = findViewById(R.id.review);
         mine = findViewById(R.id.mine);

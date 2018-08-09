@@ -5,6 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/homebackground"
     tools:context="com.example.a00.bdcapp.HomeActivity">
 
     <LinearLayout
@@ -13,17 +14,16 @@
         android:orientation="horizontal"
         android:id="@+id/searchll">
 
-        <EditText
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="输入"
-            android:layout_weight="1"
-            android:id="@+id/search_text_edit"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="查询"
-            android:id="@+id/search"/>
+            android:text="输入要查询的中英文"
+            android:background="@drawable/ic_search"
+            android:id="@+id/search_text_edit"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

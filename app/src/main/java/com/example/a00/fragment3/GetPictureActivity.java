@@ -3,38 +3,19 @@ package com.example.a00.fragment3;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.a00.bdcapp.R;
 
@@ -42,7 +23,7 @@ import com.example.a00.bdcapp.R;
  * 当用户要替换头像时调用本地图库或者拍摄
  */
 
-public class GetPictureActivity extends PopupWindow{
+public class GetPictureActivity {
     //上下文对象
     private Context mContext;
     //Title文字
@@ -75,6 +56,7 @@ public class GetPictureActivity extends PopupWindow{
         this.mContext = context;
         this.mTitle = title;
     }
+
 
     /**
      * 设置选项的点击事件
