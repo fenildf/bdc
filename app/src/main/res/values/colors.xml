@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#53C7F0</color>
     <color name="colorPrimaryDark">#303f9f</color>
     <color name="colorAccent">#FF4081</color>
     <color name="addToPlan">#D2691E</color>
-    <color name="addedToPlan">#8ca8d2</color>
+    <color name="addedToPlan">#53C7F0</color>
+    <color name="colorPrimaryTextBlack">#000000</color>
 
     <color name="white">#FFFFFF</color><!--白色 -->
     <color name="ivory">#FFFFF0</color><!--象牙色 -->
@@ -152,5 +153,6 @@
     <color name="darkblue">#00008B</color><!--暗蓝色 -->
     <color name="navy">#000080</color><!--海军色 -->
     <color name="black">#000000</color><!--黑色 -->
+    <color name="theme">#53C7F0</color>
 
 </resources>

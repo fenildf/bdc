@@ -16,14 +16,14 @@ import com.example.a00.bdcapp.R;
  *点击故事阅读以后跳转到故事阅读
  */
 public class StoryReadingActivity extends AppCompatActivity {
-    private TextView storyshow;
+    private TextView storyShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story_reading);
-        storyshow = findViewById(R.id.storyshow);
-        storyshow.setMovementMethod(ScrollingMovementMethod.getInstance());
+        storyShow = findViewById(R.id.storyshow);
+        storyShow.setMovementMethod(ScrollingMovementMethod.getInstance());
 
     }
 

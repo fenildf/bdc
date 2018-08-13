@@ -10,7 +10,9 @@
         android:id="@+id/word_tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="fixed">
+        app:tabMode="fixed"
+        app:tabIndicatorColor="#FFE5AB"
+        app:tabSelectedTextColor="#FFE5AB">
         <android.support.design.widget.TabItem
             android:id="@+id/word_combination"
             android:layout_width="wrap_content"

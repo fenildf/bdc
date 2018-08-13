@@ -6,6 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="组合"
+        android:textColor="@drawable/item_text_selector"
+        android:textSize="30sp"
         android:id="@+id/word_homonym"/>
 
 </LinearLayout>

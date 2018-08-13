@@ -27,6 +27,9 @@ import android.view.View;
 import android.widget.ImageView;
 import com.example.a00.bdcapp.R;
 
+/**
+ * 将图片裁剪成圆形，显示在个人信息页面上
+ */
 
 public class CircleImageView extends android.support.v7.widget.AppCompatImageView {
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;

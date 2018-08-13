@@ -21,6 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="rule"
+                android:background="#EDFDAD"
                 android:gravity="center_horizontal"
                 android:id="@+id/word"
                 android:textSize="25dp"/>
@@ -63,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/meaning_layout"
                 android:orientation="vertical"
-                android:layout_below="@+id/pro_layout">
+                android:background="#EDFDAD">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -86,8 +87,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/eg_layout"
                 android:orientation="vertical"
-                android:layout_below="@+id/meaning_layout"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:background="#EDFDAD">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -110,8 +111,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/same_classification_layout"
                 android:orientation="vertical"
-                android:layout_below="@+id/eg_layout"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:background="#EDFDAD">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -135,8 +136,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/same_look_layout"
                 android:orientation="vertical"
-                android:layout_below="@+id/same_classification_layout"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:background="#EDFDAD">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -172,13 +173,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="认识"
-            android:id="@+id/know"/>
+            android:id="@+id/know"
+            android:background="@drawable/ic_button"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="不认识"
-            android:id="@+id/not_know"/>
+            android:id="@+id/not_know"
+            android:background="@drawable/ic_button"/>
     </LinearLayout>
 
 </RelativeLayout>

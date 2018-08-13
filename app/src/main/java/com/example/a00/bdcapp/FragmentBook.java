@@ -1,36 +1,18 @@
 package com.example.a00.bdcapp;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ExpandableListView;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
-import com.example.a00.fragment1.MyCoursesActivity;
-import com.example.a00.fragment1.SearchWordsActivity;
-import com.example.a00.fragment1.SentenceEveryDayActivity;
-import com.example.a00.fragment1.StoryReadingActivity;
 import com.simulation.bdc.Service.BookService;
 import com.simulation.bdc.adapter.BookAdapter;
 import com.simulation.bdc.enitity.Book;
-import com.simulation.bdc.util.PictureBitmap;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 
 
 public class FragmentBook extends Fragment {

@@ -9,9 +9,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.a00.bdcapp.R;
@@ -34,6 +36,7 @@ public class WordInfoActivity extends AppCompatActivity {
     private Word word;
     private WordService wordService = new WordService();
     private String ip = "http://123.206.29.55/";
+    private LinearLayout meaningLayout;
 
     private static final String TAG = "WordInfoActivity";
 

@@ -1,6 +1,7 @@
 package com.simulation.bdc.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,10 @@ public class UnitAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater listContainer;     //视图容器
     private ListItemView listItemView;
+
+    private int currentItem=0;  //当前选中的item
+    private boolean isClick=false;
+
 
     public UnitAdapter(Context context, List<Unit> units){
         this.context = context;
@@ -55,7 +60,24 @@ public class UnitAdapter extends BaseAdapter {
         final Unit unit = units.get(position);
         listItemView.unit = unit;
         listItemView.unitName.setText(unit.getUnitName());
+
+        if (currentItem == position) {
+            //如果被点击，设置当前TextView被选中
+            listItemView.unitName.setSelected(true);
+        } else {
+            //如果没有被点击，设置当前TextView未被选中
+            listItemView.unitName.setSelected(false);
+        }
+/*        //被点击的一行颜色改变
+        if (currentItem==position&&isClick){
+            parent.setBackgroundColor(Color.parseColor("#53C7F0"));
+        }else{
+            parent.setBackgroundColor(Color.parseColor("#ffffff"));
+        }*/
         return convertView;
+    }
+    public void setCurrentItem(int currentItem) {
+        this.currentItem = currentItem;
     }
 
     class ListItemView{

@@ -49,8 +49,8 @@ public class WordlistActivity extends AppCompatActivity {
         three = mTabLayout.getTabAt(2);
 
         //设置Tab的图标，假如不需要则把下面的代码删去
-        one.setIcon(R.mipmap.ic_launcher);
-        two.setIcon(R.mipmap.ic_launcher);
-        three.setIcon(R.mipmap.ic_launcher);
+        one.setIcon(R.drawable.ic_one);
+        two.setIcon(R.drawable.ic_two);
+        three.setIcon(R.drawable.ic_three);
     }
 }

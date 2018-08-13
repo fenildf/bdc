@@ -7,61 +7,83 @@
     tools:context="com.example.a00.bdcapp.MineActivity">
 
 
-    <com.example.a00.fragment1.CircleImageView
-        android:id="@+id/user_picture"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/icon"
-        android:layout_marginTop="5dp"/>
-
-    <TextView
-        android:id="@+id/user_name_show"
+    <LinearLayout
+        android:id="@+id/fl1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/user_picture"
-        android:gravity="center_horizontal"
-        android:text="昵称"
-        android:textSize="20sp" />
-
-
-    <Button
-        android:id="@+id/user_revise"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#00000000"
-        android:text="基本信息"
-        android:layout_below="@+id/user_name_show"/>
-
-    <Button
-        android:id="@+id/user_wordlist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/user_revise"
-        android:background="#00000000"
-        android:text="单词本" />
+        android:layout_alignParentTop="true"
+        android:background="#FFFF9D"
+        android:orientation="vertical"
+        android:showDividers="end"
+        android:divider="@drawable/divider_line">
 
-    <Button
-        android:id="@+id/user_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/user_setting"
-        android:background="#00000000"
-        android:text="退出登录" />
+        <com.example.a00.fragment1.CircleImageView
+            android:id="@+id/user_picture"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/icon" />
 
-    <Button
-        android:id="@+id/user_setting"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/user_name_show"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="昵称"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/user_collect"
-        android:background="#00000000"
-        android:text="复习设置" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="我的收藏"
-        android:id="@+id/user_collect"
-        android:layout_below="@+id/user_wordlist"
-        android:background="#00000000"/>
+        android:orientation="vertical"
+        android:id="@+id/ll1"
+        android:layout_below="@+id/fl1"
+        android:layout_marginTop="30dp"
+        android:showDividers="middle"
+        android:divider="@drawable/divider_line">
+
+        <Button
+            android:id="@+id/user_revise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="基本信息"
+            android:textSize="20sp"
+            android:background="#00000000"/>
+
+        <Button
+            android:id="@+id/user_wordlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="单词本"
+            android:textSize="20sp"
+            android:background="#00000000"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的收藏"
+            android:id="@+id/user_collect"
+            android:textSize="20sp"
+            android:background="#00000000"/>
+
+        <Button
+            android:id="@+id/user_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="复习设置"
+            android:textSize="20sp"
+            android:background="#00000000"/>
+
+        <Button
+            android:id="@+id/user_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="退出登录"
+            android:textSize="20sp"
+            android:background="#00000000"/>
+    </LinearLayout>
 </RelativeLayout>

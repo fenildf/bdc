@@ -4,8 +4,10 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryTextBlack</item>
+        <item name="android:windowBackground">@color/white</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -21,5 +23,13 @@
         <!-- 指定显示的动画xml -->
         <item name="android:windowExitAnimation">@anim/anim_exit_bottom</item>
         <!-- 指定消失的动画xml -->
+    </style>
+
+    <!--水平分割线-->
+    <style name="horizontal_division_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">#dddddd</item>
     </style>
 </resources>

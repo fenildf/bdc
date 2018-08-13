@@ -45,8 +45,8 @@ public class MyCoursesActivity extends AppCompatActivity {
         two = mTabLayout.getTabAt(1);
 
         //设置Tab的图标，假如不需要则把下面的代码删去
-        one.setIcon(R.mipmap.ic_launcher);
-        two.setIcon(R.mipmap.ic_launcher);
+        one.setIcon(R.drawable.ic_book);
+        two.setIcon(R.drawable.ic_plan);
 
     }
 }

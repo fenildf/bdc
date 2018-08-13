@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 
 /**
  * Created by 0.0 on 2018/7/14.
+ * 将控件显示成圆形
  */
 
 public class RoundRelative extends RelativeLayout {

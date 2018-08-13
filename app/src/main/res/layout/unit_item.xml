@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textSize="20sp" />
+        android:textSize="30sp"
+        android:textColor="@drawable/item_text_selector"/>
     <ListView
         android:id="@+id/word_list"
         android:layout_width="match_parent"

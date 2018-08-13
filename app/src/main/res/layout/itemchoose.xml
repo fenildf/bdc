@@ -12,5 +12,5 @@
         android:background="@null"
         android:text="选项一"
         android:textSize="18sp"
-        android:textColor="#8ca8d2"/>
+        android:textColor="#53C7F0"/>
 </LinearLayout>

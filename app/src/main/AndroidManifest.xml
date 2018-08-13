@@ -21,7 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home" />
@@ -30,18 +31,10 @@
             android:label="@string/title_activity_story_reading"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.example.a00.fragment1.SentenceEveryDayActivity"
-            android:label="@string/title_activity_sentence_every_day"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name="com.example.a00.fragment1.ReviewPlanActivity"
             android:label="@string/title_activity_review_plan"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.example.a00.fragment1.MyCoursesActivity" />
-        <!--
-        <activity android:name="com.example.a00.fragment2.CYLEActivity" />
-        <activity android:name="com.example.a00.fragment2.NCEActivity" />
-        -->
         <activity android:name="com.example.a00.fragment3.WordlistActivity" />
         <activity android:name="com.example.a00.fragment3.ReviseInformationActivity" />
         <activity android:name="com.example.a00.fragment3.FeedbackActivity" />
@@ -49,7 +42,6 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name="com.example.a00.fragment3.NumberActivity" />
         <activity android:name="com.example.a00.fragment1.SearchWordsActivity" />
-        <activity android:name="com.example.a00.fragment3.GetPictureActivity" />
         <activity android:name="com.example.a00.fragment1.WordInfoActivity" />
         <activity android:name=".StartReciteWordActivity" />
         <activity android:name=".MineActivity" />
